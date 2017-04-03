@@ -43,6 +43,10 @@ public class UserAccountHome extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                String home_success = "Coming from User Account Home";
+                Intent homeToAdd = new Intent(UserAccountHome.this, AddPrescriptionActivity.class);
+                homeToAdd.putExtra("Success", home_success);
+                startActivity(homeToAdd);
             }
         });
     }
