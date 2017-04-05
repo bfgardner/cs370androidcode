@@ -27,7 +27,8 @@
             android:name=".UserAccountHome"
             android:label="@string/title_activity_user_account_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AddPrescriptionActivity"></activity>
+        <activity android:name=".AddPrescriptionActivity" />
+        <activity android:name=".CreateAccountActivity"></activity>
     </application>
 
 </manifest>
