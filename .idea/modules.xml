@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Iaso.iml" filepath="$PROJECT_DIR$/Iaso.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cs370androidcode.iml" filepath="$PROJECT_DIR$/cs370androidcode.iml" />
       <module fileurl="file://$PROJECT_DIR$/cs370androidcode.iml" filepath="$PROJECT_DIR$/cs370androidcode.iml" />
     </modules>
   </component>

@@ -11,10 +11,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import com.example.iaso.iaso.adapter.RecyclerViewAdapter;
+import com.example.iaso.iaso.core.model.MedicineItem;
+
+import java.util.ArrayList;
+
 public class UserAccountHome extends AppCompatActivity {
 
-    //private RecyclerView recyclerView;
-    //private LinearLayoutManager
+    private RecyclerView UserAccountRecycler;
+    private LinearLayoutManager UserAccountlayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +33,20 @@ public class UserAccountHome extends AppCompatActivity {
         else
             Log.d("USERACCOUNTHOME", "It didn't work. No email found");
 
-        ///recyclerView = (RecyclerView)findViewById(R.);
-        //--layoutManager = new LinearLayoutManager(getBaseContext());
-        //recyclerView.setLayoutManager(--layoutManager);
+        UserAccountRecycler = (RecyclerView)findViewById(R.id.recycler_view);
+        UserAccountlayoutManager = new LinearLayoutManager(getBaseContext());
+        UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
 
+        ArrayList<MedicineItem> items = new ArrayList<>();
+
+        for(int i = 0; i < 5000; i++){
+            items.add(new MedicineItem.Builder()
+                    .name("name" + " " + String.valueOf(i))
+                    .build());
+        }
+
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(items); //make list of items
+        UserAccountRecycler.setAdapter(adapter);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

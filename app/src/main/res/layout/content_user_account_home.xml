@@ -9,4 +9,13 @@
     tools:showIn="@layout/activity_user_account_home2">
 
 
+
+    <!-- The Next Step: Items are spaced weird. Maybe has to do with constraintlayout vs LinearLayout? -->
+    <TextView
+        android:id="@+id/recycler_medicine_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
 </android.support.constraint.ConstraintLayout>
