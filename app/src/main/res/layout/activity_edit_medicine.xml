@@ -2,26 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_add_prescription"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="16dp"
-    android:paddingLeft="64dp"
-    android:paddingRight="64dp"
-    android:paddingTop="16dp"
-    android:orientation="vertical"
-    tools:context="com.example.iaso.iaso.AddPrescriptionActivity">
+    tools:context="com.example.iaso.iaso.EditMedicineActivity">
 
     <Button
-        android:id="@+id/create_button"
+        android:id="@+id/save_med_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create"
-         />
+        android:text="Save Changes"/>
+
     <Button
-        android:id="@+id/back_to_home"
+        android:id="@+id/back_no_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back"/>
-
 </LinearLayout>
