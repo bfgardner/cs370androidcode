@@ -1,4 +1,4 @@
-package com.example.iaso.iaso;
+package com.example.iaso.iaso.auth;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -29,6 +29,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.iaso.iaso.R;
+import com.example.iaso.iaso.UserAccountHome.UserAccountHome;
 
 import java.util.ArrayList;
 import java.util.List;

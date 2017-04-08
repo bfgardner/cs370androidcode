@@ -10,7 +10,7 @@
     android:paddingRight="64dp"
     android:paddingTop="16dp"
     android:orientation="vertical"
-    tools:context="com.example.iaso.iaso.AddPrescriptionActivity">
+    tools:context="com.example.iaso.iaso.Prescription.AddPrescriptionActivity">
 
     <Button
         android:id="@+id/create_button"
