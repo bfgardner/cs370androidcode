@@ -3,19 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.iaso.iaso.UserAccountHome"
     tools:showIn="@layout/activity_user_account_home2">
 
+
+    <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:cardUseCompatPadding="true">
 
 
     <!-- The Next Step: Items are spaced weird. Maybe has to do with constraintlayout vs LinearLayout? -->
     <TextView
         android:id="@+id/recycler_medicine_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 
+</android.support.v7.widget.CardView>
+<!--
+    <LinearLayout
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
 
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
+    </LinearLayout>
+-->
 </android.support.constraint.ConstraintLayout>

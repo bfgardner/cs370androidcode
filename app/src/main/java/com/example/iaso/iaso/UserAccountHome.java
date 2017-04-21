@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.iaso.iaso.adapter.RecyclerViewAdapter;
 import com.example.iaso.iaso.core.model.MedicineItem;
@@ -18,8 +19,15 @@ import java.util.ArrayList;
 
 public class UserAccountHome extends AppCompatActivity {
 
+
     private RecyclerView UserAccountRecycler;
     private LinearLayoutManager UserAccountlayoutManager;
+
+
+    //private RecyclerView recyclerView;
+    //private LinearLayoutManager
+    private Button settingsButton;
+   // private Button medicineButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +49,7 @@ public class UserAccountHome extends AppCompatActivity {
 
         for(int i = 0; i < 5000; i++){
             items.add(new MedicineItem.Builder()
-                    .name("name" + " " + String.valueOf(i))
+                    .name("Medicine  name" + " " + String.valueOf(i))
                     .build());
         }
 
@@ -53,6 +61,8 @@ public class UserAccountHome extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        settingsButton=(Button)findViewById(R.id.settings_button);
+       // medicineButton=(Button)findViewById(R.id.medicine_button);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,6 +74,26 @@ public class UserAccountHome extends AppCompatActivity {
                 startActivity(homeToAdd);
             }
         });
+
+       settingsButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               String toSettingsSuccess = "Going to account settings";
+               Intent toAccountSettings = new Intent(UserAccountHome.this, AccountSettingsActivity.class);
+               toAccountSettings.putExtra("Success", toSettingsSuccess);
+               startActivity(toAccountSettings);
+           }
+       });
+/*
+        medicineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String toMedinfoSuccess = "Going to medicine info";
+                Intent toMedicineView   = new Intent(UserAccountHome.this, MedicineDetailActivity.class);
+                toMedicineView.putExtra("Success", toMedinfoSuccess);
+                startActivity(toMedicineView);
+            }
+        });*/
     }
 
 }
