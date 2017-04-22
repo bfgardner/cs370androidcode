@@ -29,6 +29,7 @@
 
 
     <!-- User Settings -->
+
     <Button
         android:id="@+id/settings_button"
         android:layout_width="165dp"
@@ -47,6 +48,7 @@
         android:background="@color/colorPrimary"
         android:text="Notifications" />
 
+
     <ImageView
         android:id="@+id/bar_under_settings_buttons"
         android:layout_width="match_parent"
@@ -54,12 +56,12 @@
         android:layout_gravity="bottom|center"
         app:srcCompat="@color/colorPrimary" />
 
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="12dp"
+        android:layout_margin="8dp"
+        android:paddingBottom="48dp"
         android:paddingTop="56dp" />
 
 
