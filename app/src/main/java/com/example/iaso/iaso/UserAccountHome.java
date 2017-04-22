@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +28,7 @@ public class UserAccountHome extends AppCompatActivity {
     //private RecyclerView recyclerView;
     //private LinearLayoutManager
     private Button settingsButton;
+    private CardView individualCard;
    // private Button medicineButton;
 
     @Override
