@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,12 +13,24 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.iaso.iaso.adapter.RecyclerViewAdapter;
+import com.example.iaso.iaso.core.model.MedicineItem;
+
+import java.util.ArrayList;
+
 public class UserAccountHome extends AppCompatActivity {
+
+
+    private RecyclerView UserAccountRecycler;
+    private LinearLayoutManager UserAccountlayoutManager;
+
 
     //private RecyclerView recyclerView;
     //private LinearLayoutManager
     private Button settingsButton;
-    private Button medicineButton;
+    private CardView individualCard;
+   // private Button medicineButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,10 +43,20 @@ public class UserAccountHome extends AppCompatActivity {
         else
             Log.d("USERACCOUNTHOME", "It didn't work. No email found");
 
-        ///recyclerView = (RecyclerView)findViewById(R.);
-        //--layoutManager = new LinearLayoutManager(getBaseContext());
-        //recyclerView.setLayoutManager(--layoutManager);
+        UserAccountRecycler = (RecyclerView)findViewById(R.id.recycler_view);
+        UserAccountlayoutManager = new LinearLayoutManager(getBaseContext());
+        UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
 
+        ArrayList<MedicineItem> items = new ArrayList<>();
+
+        for(int i = 0; i < 5000; i++){
+            items.add(new MedicineItem.Builder()
+                    .name("Medicine  name" + " " + String.valueOf(i))
+                    .build());
+        }
+
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(items); //make list of items
+        UserAccountRecycler.setAdapter(adapter);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -41,7 +64,7 @@ public class UserAccountHome extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         settingsButton=(Button)findViewById(R.id.settings_button);
-        medicineButton=(Button)findViewById(R.id.medicine_button);
+       // medicineButton=(Button)findViewById(R.id.medicine_button);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,7 +86,7 @@ public class UserAccountHome extends AppCompatActivity {
                startActivity(toAccountSettings);
            }
        });
-
+/*
         medicineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,7 +95,7 @@ public class UserAccountHome extends AppCompatActivity {
                 toMedicineView.putExtra("Success", toMedinfoSuccess);
                 startActivity(toMedicineView);
             }
-        });
+        });*/
     }
 
 }

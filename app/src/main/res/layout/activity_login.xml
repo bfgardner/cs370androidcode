@@ -15,9 +15,9 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:src="@drawable/iaso_circular_logo"
         android:layout_width="match_parent"
-        android:layout_height="240dp" />
+        android:layout_height="200dp"
+        android:src="@drawable/iaso_circular_logo" />
 
     <ProgressBar
         android:id="@+id/login_progress"
@@ -46,9 +46,12 @@
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
+                    android:paddingBottom="16dp"
                     android:paddingTop="16dp"
                     android:singleLine="true" />
 
@@ -62,13 +65,14 @@
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
                     android:hint="@string/prompt_password"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
@@ -80,7 +84,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:background="@color/colorPrimary"
-                android:lineSpacingExtra="18sp"
                 android:text="Login"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -92,7 +95,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:background="@color/colorPrimary"
-                android:lineSpacingExtra="18sp"
                 android:text="Create Account"
                 android:textSize="18sp" />
 

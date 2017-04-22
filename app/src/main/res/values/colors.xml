@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#356FB7</color>          <!-- blue, brand -->
-    <color name="colorPrimaryDark">#303f9f</color>      <!-- dark blue, brand -->
+    <color name="colorPrimaryDark">#293489</color>      <!-- dark blue, brand -->
     <color name="colorBright">#00FFAE</color>           <!-- bright green, brand -->
 
     <color name="colorAccent">#000000</color>           <!-- black for text -->
