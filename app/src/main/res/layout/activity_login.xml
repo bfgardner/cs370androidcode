@@ -17,7 +17,7 @@
         android:id="@+id/logo"
         android:src="@drawable/iaso_circular_logo"
         android:layout_width="match_parent"
-        android:layout_height="240dp" />
+        android:layout_height="250dp" />
 
     <ProgressBar
         android:id="@+id/login_progress"
