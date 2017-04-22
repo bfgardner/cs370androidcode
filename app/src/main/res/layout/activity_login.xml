@@ -49,6 +49,7 @@
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
+                    android:paddingTop="16dp"
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
@@ -67,6 +68,7 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
+                    android:paddingTop="16dp"
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
@@ -76,16 +78,23 @@
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
+                android:background="@color/colorPrimary"
+                android:lineSpacingExtra="18sp"
                 android:text="Login"
+                android:textSize="18sp"
                 android:textStyle="bold" />
+
             <Button
                 android:id="@+id/need_account_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Create Account"/>
+                android:layout_marginTop="32dp"
+                android:background="@color/colorPrimary"
+                android:lineSpacingExtra="18sp"
+                android:text="Create Account"
+                android:textSize="18sp" />
 
         </LinearLayout>
     </ScrollView>
