@@ -5,10 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
     private Button createAccountButton;
+    private EditText createEmail;
+    private EditText createPassword;
+    private EditText createUserName;
 
 
     @Override
@@ -17,6 +21,11 @@ public class CreateAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_account);
 
         createAccountButton = (Button)findViewById(R.id.create_account_button);
+
+        createEmail = (EditText) findViewById(R.id.email);
+        createPassword = (EditText) findViewById(R.id.password);
+        createUserName = (EditText) findViewById(R.id.username);
+
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

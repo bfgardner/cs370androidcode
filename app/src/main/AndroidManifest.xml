@@ -31,7 +31,8 @@
         <activity android:name=".CreateAccountActivity" />
         <activity android:name=".AccountSettingsActivity" />
         <activity android:name=".MedicineDetailActivity" />
-        <activity android:name=".EditMedicineActivity"></activity>
+        <activity android:name=".EditMedicineActivity" />
+        <activity android:name=".NotificationSettingsActivity"></activity>
     </application>
 
 </manifest>
