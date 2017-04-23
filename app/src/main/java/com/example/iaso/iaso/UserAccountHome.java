@@ -59,9 +59,6 @@ public class UserAccountHome extends AppCompatActivity {
         UserAccountRecycler.setAdapter(adapter);
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         settingsButton=(Button)findViewById(R.id.settings_button);
        // medicineButton=(Button)findViewById(R.id.medicine_button);
