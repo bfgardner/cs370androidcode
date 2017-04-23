@@ -10,7 +10,7 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
-public class NotificationResponseTask extends AsyncTask<String,String,NotificationResponse> {
+/*public class NotificationResponseTask extends AsyncTask<String,String,NotificationResponse> {
     private OnNotificationCallbackListener listener;
 
     @Override
@@ -63,4 +63,4 @@ public class NotificationResponseTask extends AsyncTask<String,String,Notificati
     public interface OnNotificationCallbackListener {
         void onCallBack(NotificationResponse response);
     }
-}
+}*/

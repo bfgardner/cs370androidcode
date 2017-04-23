@@ -10,7 +10,7 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
-public class UserDataTask extends AsyncTask<String,String,UserDataResponse> {
+/*public class UserDataTask extends AsyncTask<String,String,UserDataResponse> {
     private OnUserDataCallbackListener listener;
 
     @Override
@@ -60,7 +60,7 @@ public class UserDataTask extends AsyncTask<String,String,UserDataResponse> {
         this.listener = listener;
     }
 
-    public interface OnUserDataCallbackListener {
+   public interface OnUserDataCallbackListener {
         void onCallBack(UserDataResponse response);
     }
-}
+}*/

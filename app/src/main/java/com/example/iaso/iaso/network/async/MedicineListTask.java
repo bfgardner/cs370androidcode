@@ -10,7 +10,7 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
-public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> {
+/*public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> {
     private OnMedicineCallbackListener listener;
 
     @Override
@@ -63,4 +63,4 @@ public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> 
     public interface OnMedicineCallbackListener {
         void onCallBack(MedicineResponse response);
     }
-}
+}*/
