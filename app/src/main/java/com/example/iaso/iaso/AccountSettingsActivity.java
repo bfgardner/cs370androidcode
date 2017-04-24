@@ -10,7 +10,6 @@ public class AccountSettingsActivity extends AppCompatActivity {
 
     private Button saveButton;
     private Button logoutButton;
-    private Button backButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +17,6 @@ public class AccountSettingsActivity extends AppCompatActivity {
 
         saveButton = (Button)findViewById(R.id.save_button);
         logoutButton = (Button)findViewById(R.id.logout_button);
-        backButton = (Button)findViewById(R.id.back_button);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,15 +40,6 @@ public class AccountSettingsActivity extends AppCompatActivity {
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //back to home, no saves
-                String backSuccess = "Settings not saved";
-                Intent back_no_save = new Intent(AccountSettingsActivity.this, UserAccountHome.class);
-                back_no_save.putExtra("Success", backSuccess);
-                startActivity(back_no_save);
-            }
-        });
+
     }
 }

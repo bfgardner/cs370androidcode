@@ -9,14 +9,12 @@ import android.widget.Button;
 public class EditMedicineActivity extends AppCompatActivity {
 
     private Button saveButton;
-    private Button backButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_medicine);
 
         saveButton = (Button)findViewById(R.id.save_med_button);
-        backButton = (Button)findViewById(R.id.back_no_save);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,15 +27,5 @@ public class EditMedicineActivity extends AppCompatActivity {
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //go back to medicine detail, don't save changes.  Replace with hamburger menu navigation
-                String noSave = "Going back, no save";
-                Intent back_no_save = new Intent (EditMedicineActivity.this, MedicineDetailActivity.class);
-                back_no_save.putExtra("Success", noSave);
-                startActivity(back_no_save);
-            }
-        });
     }
 }
