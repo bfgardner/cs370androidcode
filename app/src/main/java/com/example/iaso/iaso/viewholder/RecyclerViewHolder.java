@@ -9,8 +9,7 @@ import android.widget.TextView;
 import com.example.iaso.iaso.MedicineDetailActivity;
 import com.example.iaso.iaso.R;
 import com.example.iaso.iaso.UserAccountHome;
-import com.example.iaso.iaso.core.model.MedicineItem;
-
+import com.example.iaso.iaso.core.model.Medicine;
 
 public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
@@ -36,8 +35,8 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    public void bindView(MedicineItem item) {
-        medicineNameTextView.setText(item.getMedicineName());
+    public void bindView(Medicine item) {
+        medicineNameTextView.setText(item.getMed_name());
     }
 
 
