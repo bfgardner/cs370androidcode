@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +27,7 @@ public class UserAccountHome extends AppCompatActivity {
 
     private Button settingsButton;
     private CardView individualCard;
+    private Button notificationButton;
 
 
     @Override
@@ -61,6 +61,8 @@ public class UserAccountHome extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         settingsButton=(Button)findViewById(R.id.settings_button);
 
+        notificationButton=(Button)findViewById(R.id.notifications_button);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +85,15 @@ public class UserAccountHome extends AppCompatActivity {
            }
        });
 
+        notificationButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                String toNotifSettingsSuccess = "Going to notification settings";
+                Intent toNotifSettings = new Intent(UserAccountHome.this, NotificationSettingsActivity.class);
+                toNotifSettings.putExtra("Success",toNotifSettingsSuccess);
+                startActivity(toNotifSettings);
+            }
+        });
     }
 
 }
