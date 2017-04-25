@@ -16,6 +16,8 @@ public class AccountSettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_settings);
 
+        //get the intent, use the UserData object to fill out the forms
+
         saveButton = (Button)findViewById(R.id.save_button);
         logoutButton = (Button)findViewById(R.id.logout_button);
         backButton = (Button)findViewById(R.id.back_button);

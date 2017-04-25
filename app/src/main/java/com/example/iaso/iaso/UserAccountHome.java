@@ -38,19 +38,35 @@ public class UserAccountHome extends AppCompatActivity {
         Intent homeIntent = getIntent();
         String email = homeIntent.getExtras().getString("Success");
         if (email != null)
+        {
             Log.d("USERACCOUNTHOME", "It worked. Everything is okay. Email is:" + email);
+        }
         else
+        {
             Log.d("USERACCOUNTHOME", "It didn't work. No email found");
 
+        }
+        //call to API, get medicine repsonse object
+        /*MedicineListTask task = new MedicineListTask();
+        task.setOnMedicineCallbackListener(new MedicineListTask.OnMedicineCallbackListener() {
+            @Override
+            public void onCallBack(MedicineResponse response) {
+                //do anything?);
+            }
+        });
+
+        task.execute(email);*/ //magic token?
         UserAccountRecycler = (RecyclerView)findViewById(R.id.recycler_view);
         UserAccountlayoutManager = new LinearLayoutManager(getBaseContext());
         UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
 
         ArrayList<Medicine> items = new ArrayList<>();
 
+        //need number of medicines from the API, use that as a list indexer instead of 5000
         for(int i = 0; i < 5000; i++){
             items.add(new Medicine.Builder()
                     .name("Medicine  name" + " " + String.valueOf(i))
+                    //all the data we want to display...?
                     .build());
         }
 

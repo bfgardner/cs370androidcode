@@ -8,7 +8,6 @@ import android.widget.Button;
 
 public class MedicineDetailActivity extends AppCompatActivity {
 
-    private Button backButtonMed;
     private Button editButton;
 
     @Override
@@ -16,24 +15,15 @@ public class MedicineDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicine_detail);
 
-        backButtonMed = (Button) findViewById(R.id.medicine_detail_back);
+        //get Intent
         editButton = (Button)findViewById(R.id.edit_medicine);
 
-        backButtonMed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //go back to home, replace this with hamburger menu navigation
-                String backSuccess  = "Going back to home Wooooooo";
-                Intent backToHome = new Intent(MedicineDetailActivity.this, UserAccountHome.class);
-                backToHome.putExtra("Success", backSuccess);
-                startActivity(backToHome);
-            }
-        });
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String navSuccess = "Going to edit medicine";
+                //pass same object that came in 
                 Intent editMedicine = new Intent(MedicineDetailActivity.this, EditMedicineActivity.class);
                 startActivity(editMedicine);
             }
