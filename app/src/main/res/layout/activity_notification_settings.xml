@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.iaso.iaso.NotificationSettingsActivity">
 
+    <Button
+        android:id="@+id/save_notif_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Changes"/>
 </android.support.constraint.ConstraintLayout>

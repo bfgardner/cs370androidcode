@@ -5,16 +5,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class AccountSettingsActivity extends AppCompatActivity {
 
     private Button saveButton;
     private Button logoutButton;
+    private TextView currentEmail;
+    private TextView currentUsername;
+    private TextView changeEmail;
+    private TextView changePassword;
+    private TextView changeUsername;
+    private EditText enterEmail;
+    private EditText enterUsername;
+    private EditText enterOldPass;
+    private EditText enterNewPass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_settings);
-
+        currentEmail = (TextView)findViewById(R.id.current_email);
+        changeEmail = (TextView)findViewById(R.id.change_email);
+        enterEmail = (EditText)findViewById(R.id.enter_email);
+        currentUsername = (TextView)findViewById(R.id.current_username);
+        changeUsername = (TextView)findViewById(R.id.change_username);
+        enterUsername = (EditText)findViewById(R.id.enter_username);
+        changePassword = (TextView)findViewById(R.id.change_password);
+        enterOldPass = (EditText)findViewById(R.id.enter_current_password);
+        enterNewPass = (EditText)findViewById(R.id.enter_new_password);
         saveButton = (Button)findViewById(R.id.save_button);
         logoutButton = (Button)findViewById(R.id.logout_button);
 

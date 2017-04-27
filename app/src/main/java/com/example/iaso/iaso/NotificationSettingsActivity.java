@@ -1,15 +1,29 @@
 package com.example.iaso.iaso;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.iaso.iaso.R;
 
 public class NotificationSettingsActivity extends AppCompatActivity {
-
+    private Button save_notif_button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_settings);
+        save_notif_button=(Button)findViewById(R.id.save_notif_button);
+        save_notif_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //click save, go back to Home
+                String saveNotifSettings = "Saved settings, back to home";
+                Intent notifSettingsToHome = new Intent(NotificationSettingsActivity.this, UserAccountHome.class);
+                notifSettingsToHome.putExtra("Success", saveNotifSettings);
+                startActivity(notifSettingsToHome);
+            }
+        });
     }
 }
