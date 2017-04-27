@@ -4,21 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.iaso.iaso.AccountSettingsActivity">
+    tools:context="com.example.iaso.iaso.AccountSettingsActivity"
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/save_button"
-        android:layout_width="wrap_content"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save Changes"/>
-    <Button
-        android:id="@+id/logout_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"/>
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back"/>
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/colorPrimary"
+        android:text="Save Changes"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/logout_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_weight="1"
+            android:background="@color/colorBright"
+            android:text="LOGOUT"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/back_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="Back to Home"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- why do we need this? -->
+
 </LinearLayout>
