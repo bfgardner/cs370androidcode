@@ -11,7 +11,52 @@
     android:paddingTop="0dp"
     tools:context="com.example.iaso.iaso.AddPrescriptionActivity"
     android:orientation="vertical">
+    <!-- I was very tired when I was doing this, so sorry about all the strange text prompts I threw in -Brooke -->
+    <TextView
+        android:id="@+id/name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text= "Name of prescription: "
+        />
+    <EditText
+        android:id="@+id/enter_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="medName wowza"/>
+    <TextView
+        android:id="@+id/dose_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="dosage (in mg)"/>
+    <EditText
+        android:id="@+id/enter_dose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="dosage"/>
+    <!-- I was thinking the input could be something like "Medicine is taken x times every y days/hours", where the user can select
+    from scrolly values for x and y and between days and hours?? Or just assume it's in days and ask how many times per day it gets taken -->
 
+    <TextView
+        android:id="@+id/recurrance_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How many times per day is this taken"/>
+    <EditText
+        android:id="@+id/enter_recurrance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="x times per day"/>
+    <!-- we need to somehow make this part dependent on the recurrance input so that the user can select that many times -->
+    <TextView
+        android:id="@+id/times_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="What times would you like to take this medicine?"/>
+    <EditText
+        android:id="@+id/enter_times"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Gimme some times nom"/>
     <Button
         android:id="@+id/create_button"
         style="?android:textAppearanceSmall"
@@ -25,19 +70,5 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <!-- why do we need this? -->
-    <Button
-        android:id="@+id/back_to_home"
-        style="?android:textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/colorBright"
-        android:text="Back to Home"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="invisible" />
 
 </LinearLayout>

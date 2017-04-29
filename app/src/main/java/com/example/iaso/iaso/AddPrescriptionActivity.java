@@ -10,7 +10,6 @@ import android.widget.Button;
 public class AddPrescriptionActivity extends AppCompatActivity {
 
     private Button createButton;
-    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +24,6 @@ public class AddPrescriptionActivity extends AppCompatActivity {
             Log.d("ADDPRESCRIP", "It didn't work. Nothing is fine.");
 
         createButton = (Button)findViewById(R.id.create_button);
-        backButton = (Button)findViewById(R.id.back_to_home);
 
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,17 +38,6 @@ public class AddPrescriptionActivity extends AppCompatActivity {
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                //back button takes you back to home without saving any data
-                //possible pop up warning message for unsaved data?
-                String noSave = "Going back, no save!";
-                Intent toHomeNoSave = new Intent(AddPrescriptionActivity.this, UserAccountHome.class);
-                toHomeNoSave.putExtra("Success", toHomeNoSave);
-                startActivity(toHomeNoSave);
-            }
-        });
 
     }
 }

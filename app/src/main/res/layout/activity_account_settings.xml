@@ -11,7 +11,7 @@
         android:id="@+id/current_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Current Email"/>
+        android:text="Current Email"/> <!-- eventuallly will be the actual email for the user -->
     <TextView
         android:id="@+id/change_email"
         android:layout_width="wrap_content"
@@ -46,12 +46,14 @@
         android:id="@+id/enter_current_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Enter Current Password: "/>
+        android:hint="Enter Current Password: "
+        android:inputType="textPassword"/>
     <EditText
         android:id="@+id/enter_new_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Enter New Password: "/>
+        android:hint="Enter New Password: "
+        android:inputType="textPassword"/>
 
     <Button
         android:id="@+id/save_button"
