@@ -11,7 +11,7 @@
         android:allowBackup="true"
         android:icon="@drawable/iaso_square_logo"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/iaso_circular_logo"
+        android:roundIcon="@drawable/iaso_application_launchlogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
