@@ -13,17 +13,16 @@ public class Medicine {
     private String dosage;
     private boolean prev_dose_taken;
     private String instructions;
-    private ArrayList<String> warnings;
+   // private ArrayList<String> warnings;
     //should next dose be stored as three sep. integers or as a string/date??
     private Integer next_dose_days;
     private Integer next_dose_hours;
     private Integer next_dose_minutes;
     private String nextDose;
-    private String rec_unit; //recurrance
-    private String rec_unit_freq;
-    private Integer num_doses_per_unit;
-    private ArrayList<Integer> doseTimes; //24 hour clock -- 1700 = 5 pm
-    private Pharmacy pharmacy;
+    private String dosage_times; //looks something like 08001900, can parse before display??
+    private Integer doses_per_day;
+    private String main_usage;
+   // private Pharmacy pharmacy;
 
     public String getMed_name(){
         return med_name;
@@ -41,9 +40,9 @@ public class Medicine {
         return prev_dose_taken;
     }
 
-    public ArrayList<String> getWarnings(){
-        return warnings;
-    }
+    //public ArrayList<String> getWarnings(){
+      //  return warnings;
+   // }
 
     public Integer getNext_dose_days(){
         return next_dose_days;
@@ -57,25 +56,15 @@ public class Medicine {
         return next_dose_minutes;
     }
 
-    public String getRec_unit(){
-        return rec_unit;
-    }
+    public String getDosage_times(){return dosage_times;}
 
-    public String getRec_unit_freq(){
-        return rec_unit_freq;
-    }
+    public Integer getDoses_per_day() {return doses_per_day;}
 
-    public Integer getNum_doses_per_unit(){
-        return num_doses_per_unit;
-    }
+    public String getMain_usage() {return main_usage;}
 
-    public ArrayList<Integer> getDoseTimes(){
-        return doseTimes;
-    }
-
-    public Pharmacy getPharmacy(){
-        return pharmacy;
-    }
+   // public Pharmacy getPharmacy(){
+     //   return pharmacy;
+    //}
 
     public static class Builder {
         private Medicine instance = new Medicine();

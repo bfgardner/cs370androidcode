@@ -15,6 +15,7 @@ import android.widget.Button;
 import com.example.iaso.iaso.adapter.RecyclerViewAdapter;
 import com.example.iaso.iaso.core.model.Medicine;
 import com.example.iaso.iaso.core.model.MedicineResponse;
+import com.example.iaso.iaso.network.async.MedicineListTask;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class UserAccountHome extends AppCompatActivity {
     private Button settingsButton;
     private CardView individualCard;
     private Button notificationButton;
-   // private MedicineResponse medicineItems;
+    private ArrayList<Medicine> medicineItems;
 
 
     @Override
@@ -50,24 +51,25 @@ public class UserAccountHome extends AppCompatActivity {
         }
         //call to API, get medicine repsonse object
         //deserialize into medicineResponse object ->access?
-        /*MedicineListTask task = new MedicineListTask();
+        MedicineListTask task = new MedicineListTask();
         task.setOnMedicineCallbackListener(new MedicineListTask.OnMedicineCallbackListener() {
             @Override
             public void onCallBack(MedicineResponse response) {
-                for (int i = 0; i < response.getMedicines.size(); i++){
-                    medicineItems.add(new Medicine.Builder()
-                        .name("Medicine name" + " " + response.getMedicines().get(i).getMed_name() );
+                for (int i = 0; i < response.getMedicines().size(); i++){
+                   medicineItems.add(new Medicine.Builder()
+                           .name("Name: "+ response.getMedicines().get(i).getMed_name())
                         //etc etc for the rest of the medicine object?
+                            .build());
                 }
             }
         });
 
-        task.execute(email);*/ //magic token?
+        task.execute(email); //magic token??
         UserAccountRecycler = (RecyclerView)findViewById(R.id.recycler_view);
         UserAccountlayoutManager = new LinearLayoutManager(getBaseContext());
         UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
 
-        //don't need this part....
+       /* //don't need this part....
         ArrayList<Medicine> items = new ArrayList<>();
 
         //need number of medicines from the API, use that as a list indexer instead of 5000
@@ -76,10 +78,10 @@ public class UserAccountHome extends AppCompatActivity {
                     .name("Medicine  name" + " " + String.valueOf(i))
                     //all the data we want to display...?
                     .build());
-        }
+        }*/
         //~~
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(items);
-        //RecyclerViewAdapter adapter = new RecyclerViewAdapter(medicineItems);
+        //RecyclerViewAdapter adapter = new RecyclerViewAdapter(items);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(medicineItems);
         UserAccountRecycler.setAdapter(adapter);
 
 
