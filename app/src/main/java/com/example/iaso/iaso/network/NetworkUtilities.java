@@ -17,6 +17,7 @@ package com.example.iaso.iaso.network;
  */
 
 import com.example.iaso.iaso.auth.AuthenticatorActivity;
+import com.example.iaso.iaso.ApplicationInstance;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +26,7 @@ import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import okhttp3.Authenticator;
@@ -35,11 +37,16 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.Route;
+import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
 
 /**
  * Provides utility methods for communicating with the server.
  */
 final public class NetworkUtilities {
+
+    private final OkHttpClient.Builder client;
+    private static final String MASTER_TOKEN = "YTTZWldYhLCHN040k7dxM1tStJUa5efw";
     /**
      * The tag used to log to adb console.
      */
@@ -67,28 +74,12 @@ final public class NetworkUtilities {
     public static final String AUTH_URI = BASE_URL + "/auth";
 
     private NetworkUtilities() {
-    }
-
-    /**
-     * Connects to the SampleSync test server, authenticates the provided
-     * username and password.
-     *
-     * @param username The server account username
-     * @param password The server account password
-     * @return String The authentication token returned by the server (or null)
-     */
-    public static String authenticate(String username, String password) {
-
-    }
-
-    private final OkHttpClient.Builder client;
-    {
         client = new OkHttpClient.Builder();
 
         client.authenticator(new Authenticator() {
             @Override
             public Request authenticate(Route route, Response response) {
-                Context context = AuthenticatorActivity;
+                Context context = ApplicationInstance.getInstance();
 
                 AccountManager accountManager = AccountManager.get(context);
                 Account[] accounts = accountManager.getAccountsByType("com.example.iaso.iaso.auth");
@@ -135,5 +126,34 @@ final public class NetworkUtilities {
                 }
             }
         });
+    }
+
+    /**
+     * Connects to the Iaso server, authenticates the provided
+     * username and password.
+     *
+     * @param username The server account username
+     * @param password The server account password
+     * @return String The authentication token returned by the server (or null)
+     */
+    public static String authenticate(String username, String password) {
+        OkHttpClient client = new OkHttpClient();
+
+        try {
+            MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+            RequestBody body = RequestBody.create(mediaType, "access_token=" + MASTER_TOKEN);
+            Request request = new Request.Builder()
+                    .url("http://api.iaso.io/auth")
+                    .post(body)
+                    .addHeader("content-type", "application/x-www-form-urlencoded")
+                    .addHeader("authorization", Credentials.basic(username, password))
+                    .addHeader("cache-control", "no-cache")
+                    .build();
+
+            Response response = client.newCall(request).execute();
+            return response.body().toString();
+        } catch (IOException e) {
+            return null;
+        }
     }
 }

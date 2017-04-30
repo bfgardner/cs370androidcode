@@ -17,6 +17,8 @@ package com.example.iaso.iaso.auth;
  */
 
 import com.example.iaso.iaso.R;
+import com.example.iaso.iaso.network.NetworkUtilities;
+import com.example.iaso.iaso.ApplicationInstance;
 
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorActivity;
@@ -78,7 +80,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
     public void onCreate(Bundle icicle) {
         Log.i(TAG, "onCreate(" + icicle + ")");
         super.onCreate(icicle);
-        mAccountManager = AccountManager.get(this);
+        mAccountManager = AccountManager.get(ApplicationInstance.getInstance());
         Log.i(TAG, "loading data from Intent");
         final Intent intent = getIntent();
         mUsername = intent.getStringExtra(PARAM_USERNAME);
