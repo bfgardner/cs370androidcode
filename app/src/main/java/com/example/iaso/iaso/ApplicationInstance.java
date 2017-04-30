@@ -1,11 +1,13 @@
 package com.example.iaso.iaso;
 
 import android.app.Application;
+import com.example.iaso.iaso.network.NetworkUtilities;
+
+import okhttp3.OkHttpClient;
 
 public class ApplicationInstance extends Application {
     private static ApplicationInstance instance;
-
-    private ApplicationInstance() {}
+    public static NetworkUtilities netUtils;
 
     @Override
     public void onCreate() {
@@ -15,10 +17,15 @@ public class ApplicationInstance extends Application {
     }
 
     private void initialize() {
-
+        netUtils = new NetworkUtilities();
     }
 
     public static ApplicationInstance getInstance() {
         return instance;
     }
+    public static NetworkUtilities getNetUtils() {
+        return netUtils;
+    }
+
+
 }

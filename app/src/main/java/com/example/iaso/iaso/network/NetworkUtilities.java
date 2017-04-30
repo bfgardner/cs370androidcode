@@ -45,7 +45,7 @@ import okhttp3.RequestBody;
  */
 final public class NetworkUtilities {
 
-    private final OkHttpClient.Builder client;
+    public static OkHttpClient client;
     private static final String MASTER_TOKEN = "YTTZWldYhLCHN040k7dxM1tStJUa5efw";
     /**
      * The tag used to log to adb console.
@@ -65,7 +65,7 @@ final public class NetworkUtilities {
     public static final String PARAM_AUTH_TOKEN = "authtoken";
     public static final int HTTP_REQUEST_TIMEOUT_MS = 30 * 1000;
     /**
-     * Base URL for the v2 Sample Sync Service
+     * Base URL for the iaso api
      */
     public static final String BASE_URL = "https://api.iaso.io";
     /**
@@ -73,10 +73,9 @@ final public class NetworkUtilities {
      */
     public static final String AUTH_URI = BASE_URL + "/auth";
 
-    private NetworkUtilities() {
-        client = new OkHttpClient.Builder();
-
-        client.authenticator(new Authenticator() {
+    public NetworkUtilities() {
+        client = new OkHttpClient.Builder()
+                .authenticator(new Authenticator() {
             @Override
             public Request authenticate(Route route, Response response) {
                 Context context = ApplicationInstance.getInstance();
@@ -125,8 +124,10 @@ final public class NetworkUtilities {
                     return null;
                 }
             }
-        });
+        }).build();
     }
+
+
 
     /**
      * Connects to the Iaso server, authenticates the provided
@@ -137,20 +138,20 @@ final public class NetworkUtilities {
      * @return String The authentication token returned by the server (or null)
      */
     public static String authenticate(String username, String password) {
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient authClient = new OkHttpClient();
 
         try {
             MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
             RequestBody body = RequestBody.create(mediaType, "access_token=" + MASTER_TOKEN);
             Request request = new Request.Builder()
-                    .url("http://api.iaso.io/auth")
+                    .url(AUTH_URI)
                     .post(body)
                     .addHeader("content-type", "application/x-www-form-urlencoded")
                     .addHeader("authorization", Credentials.basic(username, password))
                     .addHeader("cache-control", "no-cache")
                     .build();
 
-            Response response = client.newCall(request).execute();
+            Response response = authClient.newCall(request).execute();
             return response.body().toString();
         } catch (IOException e) {
             return null;

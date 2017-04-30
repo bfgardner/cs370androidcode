@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.example.iaso.iaso.Prescription.AddPrescriptionActivity;
 import com.example.iaso.iaso.R;
+import com.example.iaso.iaso.network.GetUserList;
 
 public class UserAccountHome extends AppCompatActivity {
 
@@ -33,6 +34,15 @@ public class UserAccountHome extends AppCompatActivity {
         //--layoutManager = new LinearLayoutManager(getBaseContext());
         //recyclerView.setLayoutManager(--layoutManager);
 
+        GetUserList task = new GetUserList();
+        task.setOnUserListCallbackListener(new GetUserList.OnUserListCallbackListener() {
+            @Override
+            public void onCallBack(String response) {
+
+            }
+        });
+
+        task.execute();
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
