@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:elevation="100dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.iaso.iaso.UserAccountHome"
     tools:showIn="@layout/activity_user_account_home2">
@@ -17,11 +18,54 @@
         app:cardUseCompatPadding="true">
 
 
-    <!-- The Next Step: build each card element to look like the wireframes. Make them clickable w/ onClickListener? -->
-    <TextView
-        android:id="@+id/recycler_medicine_name"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <!-- The Next Step: build each card element to look like the wireframes. -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/recycler_medicine_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorBackground"/>
+
+            <TextView
+                android:id="@+id/recycler_medicine_details"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+            <TextView
+                android:id="@+id/recycler_medicine_next_dose"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+<!--
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/recycler_medicine_details"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/recycler_medicine_next_dose"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            </LinearLayout>
+-->
+        </LinearLayout>
+
 
 </android.support.v7.widget.CardView>
 
