@@ -12,7 +12,7 @@ public class Medicine {
     private String med_name;
     private String description;
     private String dosage;
-    private boolean prev_dose_taken;
+    private String prev_dose_taken;
     private String instructions;
    // private ArrayList<String> warnings;
     private String nextDose;
@@ -33,7 +33,7 @@ public class Medicine {
         return dosage;
     }
 
-    public boolean isPrevDoseTaken(){
+    public String isPrevDoseTaken(){
         return prev_dose_taken;
     }
 
