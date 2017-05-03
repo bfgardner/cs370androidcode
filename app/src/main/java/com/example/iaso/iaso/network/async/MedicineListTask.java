@@ -57,7 +57,7 @@ public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> 
 
             if (response != null) {
                 String body = response.body().string();
-                String actualBody = body.substring(1, body.length()-1);
+                String actualBody = body.substring(1, body.length()-1); //array //JSONArray
                 Gson gson = new Gson();
                // MedicineResponse medicineResponse = new MedicineResponse();
                 JSONObject object = new JSONObject(actualBody);
@@ -75,7 +75,7 @@ public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> 
                // return medicineResponse;
             }
         } catch (IOException e) {
-          // return medicineResponse;
+          // return medicineResponse; //check exceptions?? generic
         } catch (JSONException e) {
             e.printStackTrace();
             return medicineResponse;
@@ -86,8 +86,8 @@ public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> 
 
     @Override
     protected void onPostExecute(MedicineResponse response) {
-        super.onPostExecute(response);
-        this.medicineCallbackListener.onMedicineCallback(response);
+        super.onPostExecute(response);//verify here??
+        this.medicineCallbackListener.onMedicineCallback(response); //vrify here too
     }
 
     public void setMedicineCallbackListener(MedicineCallbackListener listener) {

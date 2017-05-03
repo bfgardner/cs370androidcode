@@ -23,6 +23,10 @@ public class AddPrescriptionActivity extends AppCompatActivity {
     private EditText enterDescrip;
     private EditText enterDosage;
     private EditText enterNumTimesTake;
+    private EditText enterInstructions;
+    private EditText enterTimes;
+    private EditText enterMainUse;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,9 @@ public class AddPrescriptionActivity extends AppCompatActivity {
         enterDescrip= (EditText)findViewById(R.id.enter_descrip);
         enterDosage = (EditText)findViewById(R.id.enter_dosage);
         enterNumTimesTake = (EditText)findViewById(R.id.num_take_day);
+        enterInstructions = (EditText)findViewById(R.id.enter_instructions);
+        enterTimes = (EditText)findViewById(R.id.enter_times);
+        enterMainUse = (EditText)findViewById(R.id.enter_main_usage);
         createButton = (Button)findViewById(R.id.create_button);
 
 
@@ -56,7 +63,9 @@ public class AddPrescriptionActivity extends AppCompatActivity {
                         //do nothing?
                     }
                 });
-                task.execute(enterName.getText().toString(), enterDescrip.getText().toString(), enterDosage.getText().toString(), enterNumTimesTake.getText().toString());
+                task.execute(enterName.getText().toString(), enterDescrip.getText().toString(), enterDosage.getText().toString(),
+                        enterNumTimesTake.getText().toString(), enterInstructions.getText().toString(), enterTimes.getText().toString(),
+                        enterMainUse.getText().toString());
                 Intent toHomeFromAdd = new Intent(AddPrescriptionActivity.this, UserAccountHome.class);
                 toHomeFromAdd.putExtra("Success", backToHome);
                 startActivity(toHomeFromAdd);

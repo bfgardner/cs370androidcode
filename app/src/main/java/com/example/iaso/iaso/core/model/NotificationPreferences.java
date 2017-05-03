@@ -8,7 +8,6 @@ public class NotificationPreferences {
     private String notif_type; //push/email/both
     private Integer initial_notif; //on time (0)?  15 mins before schedule (.25)?
     private Integer additional_notif; //every 15 mins after the first notif? (.25)
-    private boolean aggressive; //notifications go from 15 minutes between to 10 mins to 5 mins etc
 
     public String getNotif_type(){
         return notif_type;
@@ -22,7 +21,4 @@ public class NotificationPreferences {
         return additional_notif;
     }
 
-    public boolean isAggressive(){
-        return aggressive;
-    }
 }

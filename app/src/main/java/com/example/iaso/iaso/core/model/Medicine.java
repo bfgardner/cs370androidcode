@@ -14,10 +14,6 @@ public class Medicine {
     private boolean prev_dose_taken;
     private String instructions;
    // private ArrayList<String> warnings;
-    //should next dose be stored as three sep. integers or as a string/date??
-    private Integer next_dose_days;
-    private Integer next_dose_hours;
-    private Integer next_dose_minutes;
     private String nextDose;
     private String dosage_times; //looks something like 08001900, can parse before display??
     private Integer doses_per_day;
@@ -43,18 +39,6 @@ public class Medicine {
     //public ArrayList<String> getWarnings(){
       //  return warnings;
    // }
-
-    public Integer getNext_dose_days(){
-        return next_dose_days;
-    }
-
-    public Integer getNext_dose_hours(){
-        return next_dose_hours;
-    }
-
-    public Integer getNext_dose_minutes(){
-        return next_dose_minutes;
-    }
 
     public String getDosage_times(){return dosage_times;}
 

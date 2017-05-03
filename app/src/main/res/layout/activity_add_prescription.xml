@@ -11,7 +11,7 @@
     android:paddingTop="16dp"
     android:orientation="vertical"
     tools:context="com.example.iaso.iaso.AddPrescriptionActivity">
-
+    <!-- Nick!  Make me pretty!  <3 -->
     <EditText
         android:id="@+id/enter_name"
         android:layout_width="wrap_content"
@@ -32,6 +32,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="How many times per day"/>
+    <EditText
+        android:id="@+id/enter_main_usage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Main Usage"/>
+    <EditText
+        android:id="@+id/enter_instructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Special Notes"/>
+    <!-- need some way to base this field off of num_take_day input -->
+    <EditText
+        android:id="@+id/enter_times"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter times"/>
     <Button
         android:id="@+id/create_button"
         android:layout_width="wrap_content"
