@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class MedicineResponse {
         ArrayList<Medicine> medicines;
-
+        public void setMedicines(ArrayList<Medicine> medicineList ) {medicines = medicineList; return;}
         public ArrayList<Medicine> getMedicines() {
             return medicines;
         }

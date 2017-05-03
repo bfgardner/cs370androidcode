@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
+import com.example.iaso.iaso.core.model.MedicineResponse;
+import com.example.iaso.iaso.network.async.AddPrescriptionTask;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -16,7 +19,10 @@ import java.io.IOException;
 public class AddPrescriptionActivity extends AppCompatActivity {
 
     private Button createButton;
-    private Button backButton;
+    private EditText enterName;
+    private EditText enterDescrip;
+    private EditText enterDosage;
+    private EditText enterNumTimesTake;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +35,12 @@ public class AddPrescriptionActivity extends AppCompatActivity {
             Log.d("ADDPRESCRIP", "It worked. Everything is fine. Message is: " + message);
         else
             Log.d("ADDPRESCRIP", "It didn't work. Nothing is fine.");
-
+        enterName = (EditText)findViewById(R.id.enter_name);
+        enterDescrip= (EditText)findViewById(R.id.enter_descrip);
+        enterDosage = (EditText)findViewById(R.id.enter_dosage);
+        enterNumTimesTake = (EditText)findViewById(R.id.num_take_day);
         createButton = (Button)findViewById(R.id.create_button);
-        backButton = (Button)findViewById(R.id.back_to_home);
+
 
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,23 +49,20 @@ public class AddPrescriptionActivity extends AppCompatActivity {
                 //add whatever data entered into text fields to db
                 Log.d("ADDPRESCRIP", "Button has been clicked");
                 String backToHome = "Going back to home!";
+                AddPrescriptionTask task = new AddPrescriptionTask();
+                task.setOnAddCallbackListener(new AddPrescriptionTask.OnAddCallbackListener() {
+                    @Override
+                    public void onCallBack(MedicineResponse response) {
+                        //do nothing?
+                    }
+                });
+                task.execute(enterName.getText().toString(), enterDescrip.getText().toString(), enterDosage.getText().toString(), enterNumTimesTake.getText().toString());
                 Intent toHomeFromAdd = new Intent(AddPrescriptionActivity.this, UserAccountHome.class);
                 toHomeFromAdd.putExtra("Success", backToHome);
                 startActivity(toHomeFromAdd);
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                //back button takes you back to home without saving any data
-                //possible pop up warning message for unsaved data?
-                String noSave = "Going back, no save!";
-                Intent toHomeNoSave = new Intent(AddPrescriptionActivity.this, UserAccountHome.class);
-                toHomeNoSave.putExtra("Success", toHomeNoSave);
-                startActivity(toHomeNoSave);
-            }
-        });
 
 
     }

@@ -10,6 +10,7 @@ public class UserData {
     private String username; //display purpose
     private String email; //user should be able to change their email
     private String trusted_contact_email;
+    private ArrayList<MedicineResponse> medicines;
     private Pharmacy favorite_pharmacy;
 
     public String getUsername(){
@@ -25,5 +26,7 @@ public class UserData {
     public Pharmacy getFavorite_pharmacy(){
         return favorite_pharmacy;
     }
+
+    public ArrayList<MedicineResponse> getMedicines() {return medicines;}
 
 }

@@ -28,7 +28,6 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View view) {
                 String toMedinfoSuccess = "Going to medicine info";
-                //call to API, get data for this specific medicine??
                 Intent toMedicineView   = new Intent(itemView.getContext(), MedicineDetailActivity.class);
                 toMedicineView.putExtra("Success", toMedinfoSuccess);
                 itemView.getContext().startActivity(toMedicineView);

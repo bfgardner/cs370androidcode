@@ -12,16 +12,31 @@
     android:orientation="vertical"
     tools:context="com.example.iaso.iaso.AddPrescriptionActivity">
 
+    <EditText
+        android:id="@+id/enter_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter medicine name"/>
+    <EditText
+        android:id="@+id/enter_descrip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter description"/>
+    <EditText
+        android:id="@+id/enter_dosage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter dosage"/>
+    <EditText
+        android:id="@+id/num_take_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="How many times per day"/>
     <Button
         android:id="@+id/create_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create"
          />
-    <Button
-        android:id="@+id/back_to_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back"/>
 
 </LinearLayout>
