@@ -49,7 +49,7 @@ public class UserAccountHome extends AppCompatActivity {
         }
         //call to API, get medicine repsonse object
         //deserialize into medicineResponse object ->access?
-       /* medicineCallbackListener = new MedicineCallbackListener() {
+        medicineCallbackListener = new MedicineCallbackListener() {
             @Override
             public void onMedicineCallback(MedicineResponse response) {
                 for (int i = 0; i < response.getMedicines().size(); i++) {
@@ -60,7 +60,7 @@ public class UserAccountHome extends AppCompatActivity {
                 }
             }
         };
-        MedicineListTask task = new MedicineListTask();*/
+        MedicineListTask task = new MedicineListTask();
         // ^"GOOD" CODE UP HERE
             //task.execute(magicalTokenOfDestiny);
         /*task.setOnMedicineCallbackListener(new MedicineListTask.OnMedicineCallbackListener() {
@@ -76,15 +76,15 @@ public class UserAccountHome extends AppCompatActivity {
             }
         });*/
         //BELOW IS NEEDED
-       // task.setMedicineCallbackListener(medicineCallbackListener);
-        //task.execute(magicalTokenOfDestiny); //magic token??
+        task.setMedicineCallbackListener(medicineCallbackListener);
+        task.execute(magicalTokenOfDestiny); //magic token??
 
         UserAccountRecycler =(RecyclerView) findViewById(R.id.recycler_view);
         UserAccountlayoutManager =new LinearLayoutManager(getBaseContext());
         UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
 
             //don't need this part....
-       ArrayList<Medicine> items = new ArrayList<>();
+       /*ArrayList<Medicine> items = new ArrayList<>();
 
         //need number of medicines from the API, use that as a list indexer instead of 5000
         for(int i = 0; i < 5000; i++) {
@@ -93,8 +93,8 @@ public class UserAccountHome extends AppCompatActivity {
                     //all the data we want to display...?
                     .build());
         }
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(items);
-       // RecyclerViewAdapter adapter = new RecyclerViewAdapter(medicineItems);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(items);*/
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(medicineItems);
         UserAccountRecycler.setAdapter(adapter);
 
 

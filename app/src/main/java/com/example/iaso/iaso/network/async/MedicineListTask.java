@@ -11,6 +11,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,13 +27,6 @@ public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> 
 
     @Override
     protected MedicineResponse doInBackground(String... params) {
-        //String myParams = "";
-        //param = magic token??
-        //if(params.length > 0) {
-           // for(int i = 0; i < params.length; i++) {
-             //   myParams = myParams + params[i] + "+";
-            //}
-        //}
 
         OkHttpClient client = new OkHttpClient();
         //compose a lookup url?
@@ -43,10 +37,6 @@ public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> 
                 .addQueryParameter("access_token", params[0]) //assume this is the magical token of destiny?
                 .build();
 
-        //HttpUrl.Builder urlBuilder = HttpUrl.parse(ApplicationInstance.getInstance().getBaseApiUrl()).newBuilder();
-        //urlBuilder.addQueryParameter("_app_key", ApplicationInstance.getInstance().getApiKey());
-        //urlBuilder.addQueryParameter("_app_id", ApplicationInstance.getInstance().getAppId());
-        //urlBuilder.addQueryParameter("access_token", magicToken);
 
         String url = urlBuilder.toString();
         Request request = new Request.Builder().url(urlBuilder).build();
@@ -57,28 +47,33 @@ public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> 
 
             if (response != null) {
                 String body = response.body().string();
-                String actualBody = body.substring(1, body.length()-1); //array //JSONArray
-                Gson gson = new Gson();
-               // MedicineResponse medicineResponse = new MedicineResponse();
-                JSONObject object = new JSONObject(actualBody);
-                String key = "med_name";
-                String value = object.getString(key);
-                Medicine myMedicine = new Medicine.Builder()
-                        .name(value)
-                        .build();
-                //medicineResponse.getMedicines().add(myMedicine);
+                JSONArray jsonArray = new JSONArray(body);
                 ArrayList<Medicine> meds = new ArrayList<Medicine>();
-                meds.add(myMedicine);
+                for(int i = 0; i < jsonArray.length(); i++)
+                {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    Medicine medicine = new Medicine.Builder()
+                            .name(jsonObject.getString("med_name"))
+                            .dosage(jsonObject.getString("dosage"))
+                            .description(jsonObject.getString("description"))
+                            .dosesPerDay(jsonObject.getString("doses_per_day"))
+                            .mainUsage(jsonObject.getString("main_usage"))
+                            .doseTimes(jsonObject.getString("dosage_times"))
+                            .instruct(jsonObject.getString("instructions"))
+                            .build();
+                    meds.add(medicine);
+                   // medicineResponse.getMedicines().add(medicine);
+                }
                 medicineResponse.setMedicines(meds);
-                //Medicine medicine = gson.fromJson(response.body().toString(), Medicine.class);
-              // medicineResponse = gson.fromJson(actualBody, MedicineResponse.class);
-               // return medicineResponse;
+
+                String key = "random line that I can set a break point on to check out the values";
             }
         } catch (IOException e) {
-          // return medicineResponse; //check exceptions?? generic
-        } catch (JSONException e) {
             e.printStackTrace();
-            return medicineResponse;
+           //return medicineResponse; //check exceptions?? generic
+        } catch (Exception e) { //exception caught here when I tried medicineResponse.getMedicines.add(medicine);
+            e.printStackTrace();
+            //return medicineResponse; //THESE EXCEPTIONS ARE DOIN SOME WEIRD SHIT
         }
 
         return medicineResponse;

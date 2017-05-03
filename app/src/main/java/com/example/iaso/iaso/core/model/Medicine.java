@@ -1,9 +1,10 @@
 package com.example.iaso.iaso.core.model;
 
+import android.os.Build;
+
 import java.util.ArrayList;
 
 /**
- * Created by Brooke on 4/22/2017.
  */
 
 public class Medicine {
@@ -74,6 +75,27 @@ public class Medicine {
         public Builder nextDose(String nextDose) {
             instance.nextDose = nextDose;
 
+            return this;
+        }
+
+        public Builder dosesPerDay(String num_per){
+           // Integer ans = Integer.parseInt(num_per);
+            instance.doses_per_day = Integer.parseInt(num_per);
+            return this;
+        }
+
+        public Builder mainUsage(String mainUse){
+            instance.main_usage = mainUse;
+            return this;
+        }
+
+        public Builder doseTimes(String times){
+            instance.dosage_times = times;
+            return this;
+        }
+
+        public Builder instruct(String string){
+            instance.instructions = string;
             return this;
         }
 
