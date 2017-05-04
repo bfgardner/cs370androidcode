@@ -29,6 +29,5 @@ public class EditMedicineActivity extends AppCompatActivity {
             }
         });
 
-
     }
 }

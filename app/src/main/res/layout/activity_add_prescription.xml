@@ -5,12 +5,12 @@
     android:id="@+id/activity_add_prescription"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="16dp"
-    android:paddingLeft="64dp"
-    android:paddingRight="64dp"
-    android:paddingTop="16dp"
-    android:orientation="vertical"
-    tools:context="com.example.iaso.iaso.AddPrescriptionActivity">
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    tools:context="com.example.iaso.iaso.AddPrescriptionActivity"
+    android:orientation="vertical">
     <!-- Nick!  Make me pretty!  <3 -->
     <EditText
         android:id="@+id/enter_name"
@@ -48,11 +48,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Enter times"/>
+
     <Button
         android:id="@+id/create_button"
-        android:layout_width="wrap_content"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create"
-         />
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/colorPrimary"
+        android:text="Create Prescription"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
 
 </LinearLayout>

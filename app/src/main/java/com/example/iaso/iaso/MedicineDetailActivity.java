@@ -15,7 +15,6 @@ public class MedicineDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicine_detail);
 
-        //get Intent
         editButton = (Button)findViewById(R.id.edit_medicine);
 
 

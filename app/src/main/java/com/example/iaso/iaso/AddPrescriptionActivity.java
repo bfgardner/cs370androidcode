@@ -73,6 +73,5 @@ public class AddPrescriptionActivity extends AppCompatActivity {
         });
 
 
-
     }
 }
