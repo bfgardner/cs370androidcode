@@ -1,10 +1,15 @@
 package com.example.iaso.iaso;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +21,7 @@ import com.example.iaso.iaso.adapter.RecyclerViewAdapter;
 import com.example.iaso.iaso.core.model.MedicineItem;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class UserAccountHome extends AppCompatActivity {
 
@@ -48,10 +54,16 @@ public class UserAccountHome extends AppCompatActivity {
         UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
 
         ArrayList<MedicineItem> items = new ArrayList<>();
+        Random randomNumGen = new Random (1000);
+        int randomVal = 0;
 
-        for(int i = 0; i < 5000; i++){
+        for(int i = 0; i < 100; i++){
+            randomVal = randomNumGen.nextInt();
+            randomVal = Math.abs(randomVal);
             items.add(new MedicineItem.Builder()
                     .name("Medicine  name" + " " + String.valueOf(i))
+                    .nextDose("Next Dose at " + String.valueOf((i + randomVal) % 12) + ":" + String.valueOf(randomVal % 6) + String.valueOf(i % 9))
+                    .details("Here are some details about Medicine name" + " " + String.valueOf(i))
                     .build());
         }
 
@@ -104,6 +116,34 @@ public class UserAccountHome extends AppCompatActivity {
                 startActivity(toMedicineView);
             }
         });*/
+
+        String contextText = "Take " + items.get(0).getMedicineName() + ", " + items.get(0).getNextDose();
+
+        Intent resIntent = new Intent(this, MedicineDetailActivity.class);
+
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, resIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification notification = new Notification.Builder(this)
+                .setSmallIcon(R.drawable.iaso_bottle)
+                .setContentTitle("Reminder, Take your Meds")
+                .setContentText(contextText)
+                .setContentIntent(pIntent)
+                .build();
+
+
+
+
+        NotificationManager notiManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notiManager.notify(0, notification);
+
+
+
     }
+
+
+
+
+
 
 }
