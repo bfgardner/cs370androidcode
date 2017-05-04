@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import com.example.iaso.iaso.UserAccountHome;
 import com.example.iaso.iaso.core.model.Medicine;
 import com.example.iaso.iaso.core.model.MedicineResponse;
+import com.example.iaso.iaso.network.async.MedicineCallbackListener; //why is this unused??
 import com.google.gson.Gson;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
@@ -49,6 +50,8 @@ public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> 
                 String body = response.body().string();
                 JSONArray jsonArray = new JSONArray(body);
                 ArrayList<Medicine> meds = new ArrayList<Medicine>();
+                //^I know this is super dumb and I should just add a method to medicineResponse to do this but I don't feel like breaking it
+                //again until I get the async task to work
                 for(int i = 0; i < jsonArray.length(); i++)
                 {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -62,7 +65,6 @@ public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> 
                             .instruct(jsonObject.getString("instructions"))
                             .build();
                     meds.add(medicine);
-                   // medicineResponse.getMedicines().add(medicine);
                 }
                 medicineResponse.setMedicines(meds);
 
@@ -70,10 +72,10 @@ public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> 
             }
         } catch (IOException e) {
             e.printStackTrace();
-           //return medicineResponse; //check exceptions?? generic
-        } catch (Exception e) { //exception caught here when I tried medicineResponse.getMedicines.add(medicine);
+           //return medicineResponse;
+        } catch (Exception e) {
             e.printStackTrace();
-            //return medicineResponse; //THESE EXCEPTIONS ARE DOIN SOME WEIRD SHIT
+            //return medicineResponse; //When the returns are uncommented here, the medicineResponse object isn't correct in the actual return
         }
 
         return medicineResponse;
@@ -89,7 +91,4 @@ public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> 
         this.medicineCallbackListener = listener;
     }
 
-   /* public interface OnMedicineCallbackListener {
-        void onCallBack(MedicineResponse response);
-    }*/
 }
