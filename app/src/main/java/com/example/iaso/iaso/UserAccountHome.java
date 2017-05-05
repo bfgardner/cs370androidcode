@@ -1,10 +1,15 @@
 package com.example.iaso.iaso;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +24,7 @@ import com.example.iaso.iaso.network.async.MedicineCallbackListener;
 import com.example.iaso.iaso.network.async.MedicineListTask;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class UserAccountHome extends AppCompatActivity {
 
@@ -68,14 +74,17 @@ public class UserAccountHome extends AppCompatActivity {
         UserAccountlayoutManager =new LinearLayoutManager(getBaseContext());
         UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
 
-            //nonasynctask
-       ArrayList<Medicine> items = new ArrayList<>();
+        ArrayList<MedicineItem> items = new ArrayList<>();
+        Random randomNumGen = new Random (1000);
+        int randomVal = 0;
 
-        //need number of medicines from the API, use that as a list indexer instead of 5000
-        for(int i = 0; i < 5000; i++) {
-            items.add(new Medicine.Builder() //make items based off of the medicine response object
+        for(int i = 0; i < 100; i++){
+            randomVal = randomNumGen.nextInt();
+            randomVal = Math.abs(randomVal);
+            items.add(new MedicineItem.Builder()
                     .name("Medicine  name" + " " + String.valueOf(i))
-                    //all the data we want to display...?
+                    .nextDose("Next Dose at " + String.valueOf((i + randomVal) % 12) + ":" + String.valueOf(randomVal % 6) + String.valueOf(i % 9))
+                    .details("Here are some details about Medicine name" + " " + String.valueOf(i))
                     .build());
         }
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(items);
@@ -136,4 +145,38 @@ public class UserAccountHome extends AppCompatActivity {
                 }
             }
         });*/
+<<<<<<< HEAD
 
+=======
+
+        String contextText = "Take " + items.get(0).getMedicineName() + ", " + items.get(0).getNextDose();
+
+        Intent resIntent = new Intent(this, MedicineDetailActivity.class);
+
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, resIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification notification = new Notification.Builder(this)
+                .setSmallIcon(R.drawable.iaso_bottle)
+                .setContentTitle("Reminder, Take your Meds")
+                .setContentText(contextText)
+                .setContentIntent(pIntent)
+                .build();
+
+
+
+
+        NotificationManager notiManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notiManager.notify(0, notification);
+
+
+
+    }
+
+
+
+
+
+
+}
+>>>>>>> 3ce4226769526eea22521f314989364a6a375e25
