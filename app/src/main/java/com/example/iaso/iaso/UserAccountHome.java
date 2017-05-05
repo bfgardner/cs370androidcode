@@ -74,9 +74,8 @@ public class UserAccountHome extends AppCompatActivity {
         UserAccountlayoutManager = new LinearLayoutManager(getBaseContext());
         UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
 
-
         ArrayList<Medicine> items = new ArrayList<>();
-        Random randomNumGen = new Random(1000);
+        Random randomNumGen = new Random (1000);
         int randomVal = 0;
 
         for (int i = 0; i < 100; i++) {
@@ -127,8 +126,22 @@ public class UserAccountHome extends AppCompatActivity {
             }
         });
 
-
         String contextText = "Take " + items.get(0).getMed_name() + ", " + items.get(0).getNextDose();
+
+    //Old code
+//task.execute(magicalTokenOfDestiny);
+        /*task.setOnMedicineCallbackListener(new MedicineListTask.OnMedicineCallbackListener() {
+            @Override
+            public void onCallBack(MedicineResponse response)
+            {
+                for (int i = 0; i < response.getMedicines().size(); i++){
+                   medicineItems.add(new Medicine.Builder()
+                           .name("Name: "+ response.getMedicines().get(i).getMed_name())
+                        //etc etc for the rest of the medicine object?
+                            .build());
+                }
+            }
+        });*/
 
         Intent resIntent = new Intent(this, MedicineDetailActivity.class);
 
@@ -152,18 +165,3 @@ public class UserAccountHome extends AppCompatActivity {
 }
 
 
-
-//Old code
-//task.execute(magicalTokenOfDestiny);
-        /*task.setOnMedicineCallbackListener(new MedicineListTask.OnMedicineCallbackListener() {
-            @Override
-            public void onCallBack(MedicineResponse response)
-            {
-                for (int i = 0; i < response.getMedicines().size(); i++){
-                   medicineItems.add(new Medicine.Builder()
-                           .name("Name: "+ response.getMedicines().get(i).getMed_name())
-                        //etc etc for the rest of the medicine object?
-                            .build());
-                }
-            }
-        });*/
