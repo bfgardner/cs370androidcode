@@ -41,10 +41,10 @@ public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> 
 
         String url = urlBuilder.toString();
         Request request = new Request.Builder().url(urlBuilder).build();
-        Response response = null;
+       // Response response = null;
         MedicineResponse medicineResponse = new MedicineResponse();
         try {
-            response = client.newCall(request).execute();
+            Response response = client.newCall(request).execute();
 
             if (response != null) {
                 String body = response.body().string();

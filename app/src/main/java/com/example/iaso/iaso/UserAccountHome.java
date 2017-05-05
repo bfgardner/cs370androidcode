@@ -53,28 +53,27 @@ public class UserAccountHome extends AppCompatActivity {
             Log.d("USERACCOUNTHOME", "It didn't work. No email found");
 
         }
+
+        UserAccountRecycler = (RecyclerView) findViewById(R.id.recycler_view);
+        UserAccountlayoutManager = new LinearLayoutManager(getBaseContext());
+        UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
         //call to API, get medicine repsonse object
-        /*medicineCallbackListener = new MedicineCallbackListener() {
+        medicineCallbackListener = new MedicineCallbackListener() {
             @Override
             public void onMedicineCallback(MedicineResponse response) {
-                for (int i = 0; i < response.getMedicines().size(); i++) {
-                    medicineItems.add(new Medicine.Builder()
-                            .name("Name: " + response.getMedicines().get(i).getMed_name())
-                            //etc etc for the rest of the medicine object?
-                            .build());
-                }
+                medicineItems = response.getMedicines();
+                RecyclerViewAdapter adapter = new RecyclerViewAdapter(medicineItems);
+                UserAccountRecycler.setAdapter(adapter);
             }
         };
         MedicineListTask task = new MedicineListTask();
 
         task.setMedicineCallbackListener(medicineCallbackListener);
-        task.execute(magicalTokenOfDestiny); //magic token??*/
+        task.execute(magicalTokenOfDestiny); //magic token??
 
-        UserAccountRecycler = (RecyclerView) findViewById(R.id.recycler_view);
-        UserAccountlayoutManager = new LinearLayoutManager(getBaseContext());
-        UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
 
-        ArrayList<Medicine> items = new ArrayList<>();
+
+        /*ArrayList<Medicine> items = new ArrayList<>();
         Random randomNumGen = new Random (1000);
         int randomVal = 0;
 
@@ -88,8 +87,7 @@ public class UserAccountHome extends AppCompatActivity {
                     .build());
         }
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(items);
-        //RecyclerViewAdapter adapter = new RecyclerViewAdapter(medicineItems);
-        UserAccountRecycler.setAdapter(adapter);
+        UserAccountRecycler.setAdapter(adapter);*/
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -126,22 +124,7 @@ public class UserAccountHome extends AppCompatActivity {
             }
         });
 
-        String contextText = "Take " + items.get(0).getMed_name() + ", " + items.get(0).getNextDose();
-
-    //Old code
-//task.execute(magicalTokenOfDestiny);
-        /*task.setOnMedicineCallbackListener(new MedicineListTask.OnMedicineCallbackListener() {
-            @Override
-            public void onCallBack(MedicineResponse response)
-            {
-                for (int i = 0; i < response.getMedicines().size(); i++){
-                   medicineItems.add(new Medicine.Builder()
-                           .name("Name: "+ response.getMedicines().get(i).getMed_name())
-                        //etc etc for the rest of the medicine object?
-                            .build());
-                }
-            }
-        });*/
+        String contextText =  "Stuff";//"Take " + medicineItems.get(0).getMed_name() + ", " + medicineItems.get(0).getNextDose();
 
         Intent resIntent = new Intent(this, MedicineDetailActivity.class);
 
