@@ -21,6 +21,8 @@ public class Medicine {
     private String main_usage;
    // private Pharmacy pharmacy;
 
+    public String medicine_id;
+    public String getMedicine_id() {return medicine_id;}
     public String getMed_name(){
         return med_name;
     }
@@ -97,6 +99,11 @@ public class Medicine {
 
         public Builder instruct(String string){
             instance.instructions = string;
+            return this;
+        }
+
+        public Builder identify(String id){
+            instance.medicine_id = id;
             return this;
         }
 

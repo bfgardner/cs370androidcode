@@ -36,7 +36,7 @@ public class UserAccountHome extends AppCompatActivity {
     private Button settingsButton;
     private CardView individualCard;
     private Button notificationButton;
-    private ArrayList<Medicine> medicineItems;
+    //private ArrayList<Medicine> medicineItems;
     private MedicineCallbackListener medicineCallbackListener;
 
 
@@ -61,8 +61,8 @@ public class UserAccountHome extends AppCompatActivity {
         medicineCallbackListener = new MedicineCallbackListener() {
             @Override
             public void onMedicineCallback(MedicineResponse response) {
-                medicineItems = response.getMedicines();
-                RecyclerViewAdapter adapter = new RecyclerViewAdapter(medicineItems);
+                //medicineItems = response.getMedicines();
+                RecyclerViewAdapter adapter = new RecyclerViewAdapter(response.getMedicines());
                 UserAccountRecycler.setAdapter(adapter);
             }
         };

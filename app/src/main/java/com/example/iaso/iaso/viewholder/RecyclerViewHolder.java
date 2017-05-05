@@ -17,7 +17,8 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     private TextView medicineDosageTextView;
     private TextView medicineDetailTextView;
     private TextView medicineNextTimeTextView;
-
+    String mainUse;
+    String med_id;
 
     public RecyclerViewHolder(final View itemView) {
         super(itemView);
@@ -29,9 +30,15 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         medicineNameTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String toMedinfoSuccess = "Going to medicine info";
+                String medicineName = medicineNameTextView.getText().toString();
+                String medicineDetail = medicineDetailTextView.getText().toString();
+                String nextTime = medicineNextTimeTextView.getText().toString();
                 Intent toMedicineView   = new Intent(itemView.getContext(), MedicineDetailActivity.class);
-                toMedicineView.putExtra("Success", toMedinfoSuccess);
+                toMedicineView.putExtra("Name", medicineName);
+                toMedicineView.putExtra("Details", medicineDetail);
+                toMedicineView.putExtra("Next", nextTime);
+                toMedicineView.putExtra("MainUse", mainUse);
+                toMedicineView.putExtra("ID", med_id);
                 itemView.getContext().startActivity(toMedicineView);
             }
         });
@@ -41,6 +48,8 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         medicineNameTextView.setText(item.getMed_name());
         medicineDetailTextView.setText(item.getDescription());
         medicineNextTimeTextView.setText(item.getNextDose());
+        mainUse = item.getMain_usage();
+        med_id = item.getMedicine_id();
 
     }
 

@@ -63,6 +63,7 @@ public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> 
                             .mainUsage(jsonObject.getString("main_usage"))
                             .doseTimes(jsonObject.getString("dosage_times"))
                             .instruct(jsonObject.getString("instructions"))
+                            .identify(jsonObject.getString("id"))
                             .build();
                     meds.add(medicine);
                 }
