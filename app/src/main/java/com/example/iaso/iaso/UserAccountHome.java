@@ -145,10 +145,6 @@ public class UserAccountHome extends AppCompatActivity {
                 }
             }
         });*/
-<<<<<<< HEAD
-
-=======
-
         String contextText = "Take " + items.get(0).getMedicineName() + ", " + items.get(0).getNextDose();
 
         Intent resIntent = new Intent(this, MedicineDetailActivity.class);
@@ -179,4 +175,4 @@ public class UserAccountHome extends AppCompatActivity {
 
 
 }
->>>>>>> 3ce4226769526eea22521f314989364a6a375e25
+
