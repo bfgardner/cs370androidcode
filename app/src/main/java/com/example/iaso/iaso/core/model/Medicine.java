@@ -40,6 +40,7 @@ public class Medicine {
     //public ArrayList<String> getWarnings(){
       //  return warnings;
    // }
+    public String getNextDose() {return nextDose;}
 
     public String getDosage_times(){return dosage_times;}
 

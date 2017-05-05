@@ -70,21 +70,21 @@ public class UserAccountHome extends AppCompatActivity {
         task.setMedicineCallbackListener(medicineCallbackListener);
         task.execute(magicalTokenOfDestiny); //magic token??*/
 
-        UserAccountRecycler =(RecyclerView) findViewById(R.id.recycler_view);
-        UserAccountlayoutManager =new LinearLayoutManager(getBaseContext());
+        UserAccountRecycler = (RecyclerView) findViewById(R.id.recycler_view);
+        UserAccountlayoutManager = new LinearLayoutManager(getBaseContext());
         UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
 
-        ArrayList<MedicineItem> items = new ArrayList<>();
+        ArrayList<Medicine> items = new ArrayList<>();
         Random randomNumGen = new Random (1000);
         int randomVal = 0;
 
-        for(int i = 0; i < 100; i++){
+        for (int i = 0; i < 100; i++) {
             randomVal = randomNumGen.nextInt();
             randomVal = Math.abs(randomVal);
-            items.add(new MedicineItem.Builder()
+            items.add(new Medicine.Builder()
                     .name("Medicine  name" + " " + String.valueOf(i))
                     .nextDose("Next Dose at " + String.valueOf((i + randomVal) % 12) + ":" + String.valueOf(randomVal % 6) + String.valueOf(i % 9))
-                    .details("Here are some details about Medicine name" + " " + String.valueOf(i))
+                    .description("Here are some details about Medicine name" + " " + String.valueOf(i))
                     .build());
         }
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(items);
@@ -93,13 +93,12 @@ public class UserAccountHome extends AppCompatActivity {
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        settingsButton=(Button) findViewById(R.id.settings_button);
-        notificationButton=(Button) findViewById(R.id.notifications_button);
+        settingsButton = (Button) findViewById(R.id.settings_button);
+        notificationButton = (Button) findViewById(R.id.notifications_button);
 
-        fab.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick (View view){
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 String home_success = "Coming from User Account Home";
@@ -107,29 +106,27 @@ public class UserAccountHome extends AppCompatActivity {
                 homeToAdd.putExtra("Success", home_success);
                 startActivity(homeToAdd);
             }
-            });
-       settingsButton.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick (View view){
+        });
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 String toSettingsSuccess = "Going to account settings";
                 Intent toAccountSettings = new Intent(UserAccountHome.this, AccountSettingsActivity.class);
                 toAccountSettings.putExtra("Success", toSettingsSuccess);
                 startActivity(toAccountSettings);
             }
-            });
-        notificationButton.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick (View view){
+        });
+        notificationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 String toNotifSettingsSuccess = "Going to notification settings";
                 Intent toNotifSettings = new Intent(UserAccountHome.this, NotificationSettingsActivity.class);
                 toNotifSettings.putExtra("Success", toNotifSettingsSuccess);
                 startActivity(toNotifSettings);
             }
-            });
-        }
-    }
+        });
+
+        String contextText = "Take " + items.get(0).getMed_name() + ", " + items.get(0).getNextDose();
 
     //Old code
 //task.execute(magicalTokenOfDestiny);
@@ -145,8 +142,7 @@ public class UserAccountHome extends AppCompatActivity {
                 }
             }
         });*/
-        String contextText = "Take " + items.get(0).getMedicineName() + ", " + items.get(0).getNextDose();
-
+        
         Intent resIntent = new Intent(this, MedicineDetailActivity.class);
 
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, resIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -159,20 +155,14 @@ public class UserAccountHome extends AppCompatActivity {
                 .build();
 
 
-
-
-        NotificationManager notiManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notiManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notiManager.notify(0, notification);
 
 
-
     }
 
-
-
-
-
-
 }
+
+
 

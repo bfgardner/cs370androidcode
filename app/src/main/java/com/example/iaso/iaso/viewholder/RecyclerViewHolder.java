@@ -37,10 +37,11 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    public void bindView(MedicineItem item) {
-        medicineNameTextView.setText(item.getMedicineName());
-        medicineDetailTextView.setText(item.getMedicineDetails());
+    public void bindView(Medicine item) {
+        medicineNameTextView.setText(item.getMed_name());
+        medicineDetailTextView.setText(item.getDescription());
         medicineNextTimeTextView.setText(item.getNextDose());
+
     }
 
 
