@@ -1,10 +1,15 @@
 package com.example.iaso.iaso;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +24,7 @@ import com.example.iaso.iaso.network.async.MedicineCallbackListener;
 import com.example.iaso.iaso.network.async.MedicineListTask;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class UserAccountHome extends AppCompatActivity {
 
@@ -64,18 +70,22 @@ public class UserAccountHome extends AppCompatActivity {
         task.setMedicineCallbackListener(medicineCallbackListener);
         task.execute(magicalTokenOfDestiny); //magic token??*/
 
-        UserAccountRecycler =(RecyclerView) findViewById(R.id.recycler_view);
-        UserAccountlayoutManager =new LinearLayoutManager(getBaseContext());
+        UserAccountRecycler = (RecyclerView) findViewById(R.id.recycler_view);
+        UserAccountlayoutManager = new LinearLayoutManager(getBaseContext());
         UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
 
-            //nonasynctask
-       ArrayList<Medicine> items = new ArrayList<>();
 
-        //need number of medicines from the API, use that as a list indexer instead of 5000
-        for(int i = 0; i < 5000; i++) {
-            items.add(new Medicine.Builder() //make items based off of the medicine response object
+        ArrayList<Medicine> items = new ArrayList<>();
+        Random randomNumGen = new Random(1000);
+        int randomVal = 0;
+
+        for (int i = 0; i < 100; i++) {
+            randomVal = randomNumGen.nextInt();
+            randomVal = Math.abs(randomVal);
+            items.add(new Medicine.Builder()
                     .name("Medicine  name" + " " + String.valueOf(i))
-                    //all the data we want to display...?
+                    .nextDose("Next Dose at " + String.valueOf((i + randomVal) % 12) + ":" + String.valueOf(randomVal % 6) + String.valueOf(i % 9))
+                    .description("Here are some details about Medicine name" + " " + String.valueOf(i))
                     .build());
         }
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(items);
@@ -84,13 +94,12 @@ public class UserAccountHome extends AppCompatActivity {
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        settingsButton=(Button) findViewById(R.id.settings_button);
-        notificationButton=(Button) findViewById(R.id.notifications_button);
+        settingsButton = (Button) findViewById(R.id.settings_button);
+        notificationButton = (Button) findViewById(R.id.notifications_button);
 
-        fab.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick (View view){
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 String home_success = "Coming from User Account Home";
@@ -98,31 +107,53 @@ public class UserAccountHome extends AppCompatActivity {
                 homeToAdd.putExtra("Success", home_success);
                 startActivity(homeToAdd);
             }
-            });
-       settingsButton.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick (View view){
+        });
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 String toSettingsSuccess = "Going to account settings";
                 Intent toAccountSettings = new Intent(UserAccountHome.this, AccountSettingsActivity.class);
                 toAccountSettings.putExtra("Success", toSettingsSuccess);
                 startActivity(toAccountSettings);
             }
-            });
-        notificationButton.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick (View view){
+        });
+        notificationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 String toNotifSettingsSuccess = "Going to notification settings";
                 Intent toNotifSettings = new Intent(UserAccountHome.this, NotificationSettingsActivity.class);
                 toNotifSettings.putExtra("Success", toNotifSettingsSuccess);
                 startActivity(toNotifSettings);
             }
-            });
-        }
+        });
+
+
+        String contextText = "Take " + items.get(0).getMed_name() + ", " + items.get(0).getNextDose();
+
+        Intent resIntent = new Intent(this, MedicineDetailActivity.class);
+
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, resIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification notification = new Notification.Builder(this)
+                .setSmallIcon(R.drawable.iaso_bottle)
+                .setContentTitle("Reminder, Take your Meds")
+                .setContentText(contextText)
+                .setContentIntent(pIntent)
+                .build();
+
+
+        NotificationManager notiManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notiManager.notify(0, notification);
+
+
     }
 
-    //Old code
+}
+
+
+
+//Old code
 //task.execute(magicalTokenOfDestiny);
         /*task.setOnMedicineCallbackListener(new MedicineListTask.OnMedicineCallbackListener() {
             @Override
@@ -136,4 +167,3 @@ public class UserAccountHome extends AppCompatActivity {
                 }
             }
         });*/
-

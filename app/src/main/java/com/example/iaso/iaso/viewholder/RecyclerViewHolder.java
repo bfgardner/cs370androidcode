@@ -23,6 +23,8 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         medicineNameTextView = (TextView)itemView.findViewById(R.id.recycler_medicine_name);
+        medicineDetailTextView = (TextView)itemView.findViewById(R.id.recycler_medicine_details);
+        medicineNextTimeTextView = (TextView)itemView.findViewById(R.id.recycler_medicine_next_dose);
 
         medicineNameTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +39,9 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
     public void bindView(Medicine item) {
         medicineNameTextView.setText(item.getMed_name());
+        medicineDetailTextView.setText(item.getDescription());
+        medicineNextTimeTextView.setText(item.getNextDose());
+
     }
 
 
