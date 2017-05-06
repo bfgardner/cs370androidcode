@@ -5,8 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.example.iaso.iaso.core.model.MedicineResponse;
 import com.example.iaso.iaso.network.async.AddPrescriptionTask;
@@ -26,6 +28,7 @@ public class AddPrescriptionActivity extends AppCompatActivity {
     private EditText enterInstructions;
     private EditText enterTimes;
     private EditText enterMainUse;
+    private Spinner dosages;
 
 
     @Override
@@ -47,6 +50,7 @@ public class AddPrescriptionActivity extends AppCompatActivity {
         enterTimes = (EditText)findViewById(R.id.enter_times);
         enterMainUse = (EditText)findViewById(R.id.enter_main_usage);
         createButton = (Button)findViewById(R.id.create_button);
+        //dosages = (Spinner)findViewById(R.id.dosage_spinner);
 
 
         createButton.setOnClickListener(new View.OnClickListener() {
