@@ -21,12 +21,14 @@ import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import java.io.IOException;
 import java.util.Collections;
 
 import io.iaso.iaso.ApplicationInstance;
+import io.iaso.iaso.auth.AuthenticatorActivity;
 import okhttp3.Authenticator;
 import okhttp3.CipherSuite;
 import okhttp3.ConnectionSpec;
@@ -89,11 +91,10 @@ final public class NetworkUtilities {
                         Context context = ApplicationInstance.getInstance();
 
                         AccountManager accountManager = AccountManager.get(context);
-                        Account[] accounts = accountManager.getAccountsByType("com.iaso.iaso.iaso.auth");
+                        Account[] accounts = accountManager.getAccountsByType("io.iaso.iaso.auth");
                         // No account, do not even try to authenticate
                         if (accounts.length == 0) {
                             Log.i(TAG, "... But we dont have any account yet, so I will just back off for now.");
-                            return null;
                         }
 
                         Account account = accounts[0];
