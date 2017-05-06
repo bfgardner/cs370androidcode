@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:elevation="100dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.iaso.iaso.UserAccountHome"
+    tools:context="io.iaso.iaso.UserAccountHome.UserAccountHome"
     tools:showIn="@layout/activity_user_account_home2">
 
 
