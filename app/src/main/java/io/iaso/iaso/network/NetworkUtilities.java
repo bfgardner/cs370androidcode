@@ -24,9 +24,12 @@ import android.content.Context;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.Collections;
 
 import io.iaso.iaso.ApplicationInstance;
 import okhttp3.Authenticator;
+import okhttp3.CipherSuite;
+import okhttp3.ConnectionSpec;
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -35,6 +38,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.Route;
+import okhttp3.TlsVersion;
 
 /**
  * Provides utility methods for communicating with the server.
@@ -70,57 +74,67 @@ final public class NetworkUtilities {
     public static final String AUTH_URI = BASE_URL + "/auth";
 
     public NetworkUtilities() {
+        ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+                .tlsVersions(TlsVersion.TLS_1_2)
+                .cipherSuites(
+                        CipherSuite.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+                        CipherSuite.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+                        CipherSuite.TLS_DHE_RSA_WITH_AES_128_GCM_SHA256)
+                .build();
+
         client = new OkHttpClient.Builder()
                 .authenticator(new Authenticator() {
-            @Override
-            public Request authenticate(Route route, Response response) {
-                Context context = ApplicationInstance.getInstance();
+                    @Override
+                    public Request authenticate(Route route, Response response) {
+                        Context context = ApplicationInstance.getInstance();
 
-                AccountManager accountManager = AccountManager.get(context);
-                Account[] accounts = accountManager.getAccountsByType("com.iaso.iaso.iaso.auth");
-                // No account, do not even try to authenticate
-                if (accounts.length == 0) {
-                    Log.i(TAG, "... But we dont have any account yet, so I will just back off for now.");
-                    return null;
-                }
+                        AccountManager accountManager = AccountManager.get(context);
+                        Account[] accounts = accountManager.getAccountsByType("com.iaso.iaso.iaso.auth");
+                        // No account, do not even try to authenticate
+                        if (accounts.length == 0) {
+                            Log.i(TAG, "... But we dont have any account yet, so I will just back off for now.");
+                            return null;
+                        }
 
-                Account account = accounts[0];
+                        Account account = accounts[0];
 
-                try {
-                    final String mCurrentToken = accountManager.blockingGetAuthToken(account, "", false);
+                        try {
+                            final String mCurrentToken = accountManager.blockingGetAuthToken(account, "", false);
 
-                    // For now, we just re-install blindly an interceptor
-                    client.interceptors().clear();
-                    Log.i(TAG, "... Installing interceptor after authentication");
-                    client.interceptors().add(new Interceptor() {
-                        @Override
-                        public Response intercept(Chain chain) throws IOException {
-                            Request request = chain.request();
-                            Request newReq = request.newBuilder()
+                            // For now, we just re-install blindly an interceptor
+                            client.interceptors().clear();
+                            Log.i(TAG, "... Installing interceptor after authentication");
+                            client.interceptors().add(new Interceptor() {
+                                @Override
+                                public Response intercept(Chain chain) throws IOException {
+                                    Request request = chain.request();
+                                    Request newReq = request.newBuilder()
+                                            .addHeader("Authorization", mCurrentToken)
+                                            .build();
+                                    Response response = chain.proceed(newReq);
+
+                                    return response;
+                                }
+                            });
+                            Log.i(TAG, "Install temporary auth token in request");
+                            return response.request().newBuilder()
                                     .addHeader("Authorization", mCurrentToken)
                                     .build();
-                            Response response = chain.proceed(newReq);
 
-                            return response;
+                        } catch (OperationCanceledException e) {
+                            Log.e(TAG, "Interrupted exception");
+                            return null;
+                        } catch (AuthenticatorException e) {
+                            Log.e(TAG, "Authentication error");
+                            return null;
+                        } catch (IOException e) {
+                            Log.e(TAG, "IO Error");
+                            return null;
                         }
-                    });
-                    Log.i(TAG, "Install temporary auth token in request");
-                    return response.request().newBuilder()
-                            .addHeader("Authorization", mCurrentToken)
-                            .build();
-
-                } catch (OperationCanceledException e) {
-                    Log.e(TAG, "Interrupted exception");
-                    return null;
-                } catch (AuthenticatorException e) {
-                    Log.e(TAG, "Authentication error");
-                    return null;
-                } catch (IOException e) {
-                    Log.e(TAG, "IO Error");
-                    return null;
-                }
-            }
-        }).build();
+                    }
+                })
+                .connectionSpecs(Collections.singletonList(spec))
+                .build();
     }
 
 

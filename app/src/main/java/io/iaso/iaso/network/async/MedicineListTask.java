@@ -7,13 +7,18 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
+import io.iaso.iaso.ApplicationInstance;
 import io.iaso.iaso.core.model.Medicine;
 import io.iaso.iaso.core.model.MedicineResponse;
+import okhttp3.CipherSuite;
+import okhttp3.ConnectionSpec;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.TlsVersion;
 
 public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> {
     private MedicineCallbackListener medicineCallbackListener;
@@ -24,8 +29,8 @@ public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> 
 
     @Override
     protected MedicineResponse doInBackground(String... params) {
+        OkHttpClient client = ApplicationInstance.getNetUtils().client;
 
-        OkHttpClient client = new OkHttpClient();
         //compose a lookup url?
         HttpUrl urlBuilder = new HttpUrl.Builder()
                 .scheme("https")
