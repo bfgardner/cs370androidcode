@@ -11,6 +11,7 @@
     tools:context="io.iaso.iaso.Prescription.AddPrescriptionActivity"
     android:orientation="vertical">
     <!-- Nick!  Make me pretty!  <3 -->
+
     <EditText
         android:id="@+id/enter_name"
         android:layout_width="wrap_content"
@@ -32,26 +33,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:prompt="@string/doses_prompt"/> <!-- NEED THIS PROMPT TO ACTUALLY DISPLAY -->
-
-    <Spinner
-        android:id="@+id/times_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <Spinner
-        android:id="@+id/am_pm_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
     <Button
-        android:id="@+id/add_time_button"
+        android:id="@+id/add_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Another Time"
-    />
-    <TextView
-        android:id="@+id/number_times_added"
+        android:text="Add a time to take the medicine"/>
+
+   <TimePicker
+        android:id="@+id/dosage_timePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"/>
+        android:timePickerMode="clock"
+        android:visibility="gone">
+       <Button
+           android:id="@+id/ok_button"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="ok" />
+   </TimePicker>
+
+
     <EditText
         android:id="@+id/enter_main_usage"
         android:layout_width="wrap_content"

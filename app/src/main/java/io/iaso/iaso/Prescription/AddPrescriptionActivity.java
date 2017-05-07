@@ -1,7 +1,9 @@
 package io.iaso.iaso.Prescription;
 
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,14 +14,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import io.iaso.iaso.R;
 import io.iaso.iaso.UserAccountHome.UserAccountHome;
 import io.iaso.iaso.core.model.MedicineResponse;
+
 import io.iaso.iaso.network.async.AddPrescriptionTask;
 
 public class AddPrescriptionActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -32,11 +37,12 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
     private EditText enterTimes;
     private EditText enterMainUse;
     private Spinner dosages;
-    private Spinner dosageTimes;
-    private Spinner am_pm;
+     private TimePicker dosageTimePicker;
     private Button addButton;
-    private TextView numAdded;
-
+    private Calendar calendar;
+    private String format;
+    private String dosageTimes;
+    private Button okButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,48 +55,30 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
             Log.d("ADDPRESCRIP", "It worked. Everything is fine. Message is: " + message);
         else
             Log.d("ADDPRESCRIP", "It didn't work. Nothing is fine.");
-        enterName = (EditText)findViewById(R.id.enter_name);
-        enterDescrip= (EditText)findViewById(R.id.enter_descrip);
-        enterDosage = (EditText)findViewById(R.id.enter_dosage);
-        enterInstructions = (EditText)findViewById(R.id.enter_instructions);
-        enterTimes = (EditText)findViewById(R.id.enter_times);
-        enterMainUse = (EditText)findViewById(R.id.enter_main_usage);
-        createButton = (Button)findViewById(R.id.create_button);
-        dosages = (Spinner)findViewById(R.id.dosage_spinner);
-        dosageTimes = (Spinner)findViewById(R.id.times_spinner);
-        am_pm = (Spinner)findViewById(R.id.am_pm_spinner);
-        numAdded = (TextView)findViewById(R.id.number_times_added);
-        addButton = (Button) findViewById(R.id.add_time_button);
+        enterName = (EditText) findViewById(R.id.enter_name);
+        enterDescrip = (EditText) findViewById(R.id.enter_descrip);
+        enterDosage = (EditText) findViewById(R.id.enter_dosage);
+        enterInstructions = (EditText) findViewById(R.id.enter_instructions);
+        enterTimes = (EditText) findViewById(R.id.enter_times);
+        enterMainUse = (EditText) findViewById(R.id.enter_main_usage);
+        createButton = (Button) findViewById(R.id.create_button);
+        dosages = (Spinner) findViewById(R.id.dosage_spinner);
+        addButton = (Button) findViewById(R.id.add_time);
+
         //spinner click listener
         dosages.setOnItemSelectedListener(this);
-        dosageTimes.setOnItemSelectedListener(this);
-        am_pm.setOnItemSelectedListener(this);
+
         //spinner drop down
         List<String> items = new ArrayList<String>();
-        for (Integer i = 1; i < 10; i++){
+        for (Integer i = 1; i < 10; i++) {
             items.add(i.toString());
         }
-        List<String> times = new ArrayList<String>();
-        String time;
-        for (Integer i = 1; i < 13; i++){
-            time = i.toString() + ":00";
-            times.add(time);
-        }
-        List<String> time_of_day = new ArrayList<String>();
-        time_of_day.add("AM");
-        time_of_day.add("PM");
+
         //adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, items );
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dosages.setAdapter(dataAdapter);
 
-        ArrayAdapter<String> timesAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, times);
-        timesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dosageTimes.setAdapter(timesAdapter);
-
-        ArrayAdapter<String> timeDayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, time_of_day);
-        timeDayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        am_pm.setAdapter(timeDayAdapter);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +94,7 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
                     }
                 });
                 task.execute(enterName.getText().toString(), enterDescrip.getText().toString(), enterDosage.getText().toString(),
-                       dosages.getSelectedItem().toString(), enterInstructions.getText().toString(), enterTimes.getText().toString(),
+                        dosages.getSelectedItem().toString(), enterInstructions.getText().toString(), enterTimes.getText().toString(),
                         enterMainUse.getText().toString());
                 Toast.makeText(AddPrescriptionActivity.this, "Medicine Added", Toast.LENGTH_LONG).show();
                 Intent toHomeFromAdd = new Intent(AddPrescriptionActivity.this, UserAccountHome.class);
@@ -114,16 +102,58 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
                 startActivity(toHomeFromAdd);
             }
         });
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dosageTimePicker = (TimePicker)findViewById(R.id.dosage_timePicker);
+                dosageTimePicker.setVisibility(View.VISIBLE);
+                calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int min = calendar.get(Calendar.MINUTE);
+                //showTime(hour, min);
+                okButton = (Button)findViewById(R.id.ok_button);
+                okButton.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        dosageTimePicker.setVisibility(View.GONE);
+                    }
+                });
+            }
+        });
 
     }
+
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         //on selecting a spinner item
         String item = parent.getItemAtPosition(position).toString();
-        //showing selected spinner item
-        //Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+
     }
-    public void onNothingSelected(AdapterView<?> arg0){
+
+    public void onNothingSelected(AdapterView<?> arg0) {
         //eh
     }
+    public void setTime(View view){
+        int hour = dosageTimePicker.getHour();
+        int min = dosageTimePicker.getMinute();
+        showTime(hour,min);
+    }
+    public void showTime(int hour, int min){
+        if (hour == 0){
+            hour += 12;
+            format = "AM";
+        }
+        else if (hour == 12){
+            format = "PM";
+        }
+        else if (hour > 12){
+            hour -=12;
+            format = "PM";
+        }
+        else{
+            format = "AM";
+        }
+    }
 }
+

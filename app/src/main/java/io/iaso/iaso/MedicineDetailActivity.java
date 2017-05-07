@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import io.iaso.iaso.UserAccountHome.UserAccountHome;
 import io.iaso.iaso.core.model.MedicineResponse;
@@ -63,6 +64,7 @@ public class MedicineDetailActivity extends AppCompatActivity {
                     }
                 });
                 task.execute(information.getExtras().getString("ID"));
+                Toast.makeText(MedicineDetailActivity.this, "Medicine Deleted", Toast.LENGTH_LONG).show();
                 Intent home = new Intent(MedicineDetailActivity.this, UserAccountHome.class);
                 home.putExtra("success!", "more success!");
                 startActivity(home);
