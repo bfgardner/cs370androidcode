@@ -203,6 +203,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
         setResult(RESULT_OK, intent);
         finish();
     }
+
     /**
      * Called when the authentication process completes (see attemptLogin()).
      *

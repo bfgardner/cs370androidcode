@@ -16,7 +16,7 @@ limitations under the License.
 -->
 
 <account-authenticator xmlns:android="http://schemas.android.com/apk/res/android"
-    android:accountType="com.example.iaso.iaso.auth"
+    android:accountType="io.iaso.iaso.auth"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:label="@string/app_name"
