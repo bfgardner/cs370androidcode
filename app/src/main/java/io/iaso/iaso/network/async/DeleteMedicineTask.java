@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import java.io.IOException;
 
+import io.iaso.iaso.ApplicationInstance;
 import io.iaso.iaso.core.model.MedicineResponse;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -20,7 +21,7 @@ public class DeleteMedicineTask extends AsyncTask <String, String, MedicineRespo
     private OnDeleteCallbackListener listener;
     @Override
     protected MedicineResponse doInBackground(String... params){
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = ApplicationInstance.getNetUtils().client;
         String id = params[0];
         MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
         RequestBody body = RequestBody.create(mediaType, "");
