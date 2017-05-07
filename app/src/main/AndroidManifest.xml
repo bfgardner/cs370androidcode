@@ -31,6 +31,13 @@
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator" />
         </service>
+
+        <receiver
+            android:name=".NotificationPublisher.NotificationPublisher"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":remote"/>
+
         <activity
             android:name="io.iaso.iaso.UserAccountHome.UserAccountHome"
             android:label="@string/title_activity_user_account_home"
@@ -40,6 +47,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name="io.iaso.iaso.AccountSettingsActivity" />
         <activity android:name="io.iaso.iaso.MedicineDetailActivity" />

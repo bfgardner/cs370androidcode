@@ -20,6 +20,8 @@ import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import io.iaso.iaso.AccountSettingsActivity;
 import io.iaso.iaso.MedicineDetailActivity;
@@ -56,7 +58,7 @@ public class UserAccountHome extends AppCompatActivity {
         UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
         //call to API, get medicine repsonse object
 
-        scheduleNotification(this, 0, 1);
+        scheduleNotification(this, "2030", 1);
 
         medicineCallbackListener = new MedicineCallbackListener() {
             @Override
@@ -153,38 +155,31 @@ public class UserAccountHome extends AppCompatActivity {
 
     }
 
-    public void scheduleNotification(Context context, long delay, int notificationId) {
+    public void scheduleNotification(Context context, String delay, int notificationId) {
 
         String contentText =  "Stuff";//"Take " + medicineItems.get(0).getMed_name() + ", " + medicineItems.get(0).getNextDose();
-        Intent resIntent = new Intent(this, MedicineDetailActivity.class); // intent to take you to once you click on the notification, I think.
+        Intent resIntent = new Intent(context, UserAccountHome.class); // intent to take you to once you click on the notification, I think.
         PendingIntent pIntent = PendingIntent.getActivity(context, notificationId, resIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        /*NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(context)
+        NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(context)
                                                                     .setSmallIcon(R.drawable.iaso_bottle)
                                                                     .setContentTitle("Reminder, Take your Meds")
-                                                                    .setContentText(contextText)
+                                                                    .setContentText(contentText)
                                                                     .setContentIntent(pIntent);
                                                                     //.setAutoCancel(true); // sets up params for notification
-*/
-        //Notification notification = nBuilder.build(); // builds notification
 
-        Notification notification = new Notification.Builder(context)
-                .setSmallIcon(R.drawable.iaso_bottle)
-                .setContentTitle("Reminder, Take your Meds")
-                .setContentText(contentText)
-                .setContentIntent(pIntent)
-                .build();
+        Notification notification = nBuilder.build(); // builds notification
 
-
-        Intent notificationIntent = new Intent(context, NotificationPublisher.class);
+        Intent notificationIntent = new Intent(context, NotificationPublisher.class); // potentially misleading variable name.. not actually the intent for the notification
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, notificationId);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notificationId, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notificationId, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        long notificationDelay = SystemClock.elapsedRealtime() + delay;
+        //calendar.add(Calendar.MINUTE, shpref.getInt("timeoutint", 30));
 
+        //long notificationDelay = hoursToMillis(delay);
+        long notificationDelay = 600000;
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, notificationDelay, pendingIntent);
-
+        alarmManager.set(AlarmManager.RTC_WAKEUP, notificationDelay, pendingIntent);
 
     }
 
@@ -205,6 +200,22 @@ public class UserAccountHome extends AppCompatActivity {
         }
 
         return times;
+    }
+
+    public long hoursToMillis(String time) {
+        //long intTime = Integer.parseInt(time);
+        Log.d("Everything is fine", time);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis()); // may not use at all
+        //calendar.setTime(); // may use for later
+        long hours = calendar.get(Calendar.HOUR_OF_DAY);
+        long minutes = calendar.get(Calendar.MINUTE);
+        long delayHours = Integer.parseInt(time.substring(0, 2)) - hours;
+        long delayMinutes = Integer.parseInt(time.substring(2, 4)) - minutes;
+
+        long difference = TimeUnit.HOURS.toMillis(delayHours) + TimeUnit.MINUTES.toMillis(delayMinutes);
+        Log.d("current diff in millis", String.valueOf(difference));
+        return difference;
     }
 
 
