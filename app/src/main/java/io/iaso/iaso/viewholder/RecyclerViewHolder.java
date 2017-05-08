@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import io.iaso.iaso.MedicineDetailActivity;
 import io.iaso.iaso.R;
 import io.iaso.iaso.core.model.Medicine;
@@ -13,11 +15,18 @@ import io.iaso.iaso.core.model.Medicine;
 public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
     private TextView medicineNameTextView;
-    private TextView medicineDosageTextView;
+    //private TextView medicineDosageTextView;
     private TextView medicineDetailTextView;
     private TextView medicineNextTimeTextView;
+
+
     String mainUse;
     String med_id;
+    String dosages;
+    String instructions;
+    Integer dosesPerDay;
+    String dosage_amount;
+
 
     public RecyclerViewHolder(final View itemView) {
         super(itemView);
@@ -38,6 +47,10 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
                 toMedicineView.putExtra("Next", nextTime);
                 toMedicineView.putExtra("MainUse", mainUse);
                 toMedicineView.putExtra("ID", med_id);
+                toMedicineView.putExtra("DoseTimes", dosages);
+                toMedicineView.putExtra("Instructions", instructions);
+                toMedicineView.putExtra("DosageAmount", dosage_amount);
+                toMedicineView.putExtra("NumDoses", dosesPerDay);
                 itemView.getContext().startActivity(toMedicineView);
             }
         });
@@ -49,6 +62,10 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         medicineNextTimeTextView.setText(item.getNextDose());
         mainUse = item.getMain_usage();
         med_id = item.getMedicine_id();
+        dosages = item.getDosage_times();
+        instructions = item.getInstructions();
+        dosage_amount = item.getDosage();
+        dosesPerDay = item.getDoses_per_day();
 
     }
 

@@ -69,7 +69,7 @@ public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> 
                             .doseTimes(jsonObject.getString("dosage_times"))
                             .instruct(jsonObject.getString("instructions"))
                             .identify(jsonObject.getString("id"))
-                           // .nextDose(next_dose)
+                            //.nextDose(next_dose)
                             .build();
                     meds.add(medicine);
                 }
