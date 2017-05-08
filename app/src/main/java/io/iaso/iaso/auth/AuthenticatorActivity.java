@@ -32,6 +32,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -50,7 +51,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
     /** The Intent extra to store username. */
     public static final String PARAM_USERNAME = "username";
     /** The Intent extra to store username. */
-    public static final String PARAM_AUTHTOKEN_TYPE = "authtokenType";
+    public static final String PARAM_AUTHTOKEN_TYPE = "io.iaso.iaso.auth";
     /** The tag used to log to adb console. */
     private static final String TAG = "AuthenticatorActivity";
     private AccountManager mAccountManager;
@@ -73,6 +74,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
     protected boolean mRequestNewAccount = false;
     private String mUsername;
     private EditText mUsernameEdit;
+
+    private View mProgressView;
+    private View mLoginFormView;
+
     /**
      * {@inheritDoc}
      */
@@ -96,6 +101,19 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
         mPasswordEdit = (EditText) findViewById(R.id.password_edit);
         if (!TextUtils.isEmpty(mUsername)) mUsernameEdit.setText(mUsername);
         mMessage.setText(getMessage());
+
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView = findViewById(R.id.login_progress);
+
+        View mSignIn = (Button)findViewById(R.id.email_sign_in_button);
+
+        mSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleLogin(view);
+            }
+        });
+
     }
     /*
      * {@inheritDoc}
@@ -151,7 +169,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
      */
     private void finishConfirmCredentials(boolean result) {
         Log.i(TAG, "finishConfirmCredentials()");
-        final Account account = new Account(mUsername, "com.iaso.iaso.iaso.auth");
+        final Account account = new Account(mUsername, PARAM_AUTHTOKEN_TYPE);
         mAccountManager.setPassword(account, mPassword);
         final Intent intent = new Intent();
         intent.putExtra(AccountManager.KEY_BOOLEAN_RESULT, result);
@@ -170,7 +188,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
      */
     private void finishLogin(String authToken) {
         Log.i(TAG, "finishLogin()");
-        final Account account = new Account(mUsername, "com.iaso.iaso.iaso.auth");
+        final Account account = new Account(mUsername, PARAM_AUTHTOKEN_TYPE);
         if (mRequestNewAccount) {
             mAccountManager.addAccountExplicitly(account, mPassword, null);
             // Set contacts sync for this account.
@@ -180,11 +198,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
         }
         final Intent intent = new Intent();
         intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, mUsername);
-        intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, "com.iaso.iaso.iaso.auth");
+        intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, PARAM_AUTHTOKEN_TYPE);
         setAccountAuthenticatorResult(intent.getExtras());
         setResult(RESULT_OK, intent);
         finish();
     }
+
     /**
      * Called when the authentication process completes (see attemptLogin()).
      *

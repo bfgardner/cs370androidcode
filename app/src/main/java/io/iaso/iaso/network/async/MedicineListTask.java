@@ -39,7 +39,6 @@ public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> 
                 .scheme("https")
                 .host("api.iaso.io")
                 .addPathSegment("medicines")
-                .addQueryParameter("access_token", params[0]) //assume this is the magical token of destiny?
                 .build();
 
 

@@ -82,7 +82,7 @@ class Authenticator extends AbstractAccountAuthenticator {
         Log.v(TAG, "getAuthToken()");
         // If the caller requested an authToken type we don't support, then
         // return an error
-        if (!authTokenType.equals("com.iaso.iaso.iaso.auth")) {
+        if (!authTokenType.equals("io.iaso.iaso.auth")) {
             final Bundle result = new Bundle();
             result.putString(AccountManager.KEY_ERROR_MESSAGE, "invalid authTokenType");
             return result;
@@ -96,7 +96,7 @@ class Authenticator extends AbstractAccountAuthenticator {
             if (!TextUtils.isEmpty(authToken)) {
                 final Bundle result = new Bundle();
                 result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
-                result.putString(AccountManager.KEY_ACCOUNT_TYPE, "com.iaso.iaso.iaso.auth");
+                result.putString(AccountManager.KEY_ACCOUNT_TYPE, "io.iaso.iaso.auth");
                 result.putString(AccountManager.KEY_AUTHTOKEN, authToken);
                 return result;
             }
