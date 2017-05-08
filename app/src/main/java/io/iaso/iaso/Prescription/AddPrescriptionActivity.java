@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -34,15 +36,16 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
     private EditText enterDescrip;
     private EditText enterDosage;
     private EditText enterInstructions;
-    private EditText enterTimes;
     private EditText enterMainUse;
     private Spinner dosages;
-     private TimePicker dosageTimePicker;
+    private TimePicker dosageTimePicker;
     private Button addButton;
     private Calendar calendar;
-    private String format;
-    private String dosageTimes;
+    private String dosageTimes= "";
     private Button okButton;
+    private Button cancelButton;
+    private TextView timesToTake;
+    private Integer numberEntered = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +62,11 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
         enterDescrip = (EditText) findViewById(R.id.enter_descrip);
         enterDosage = (EditText) findViewById(R.id.enter_dosage);
         enterInstructions = (EditText) findViewById(R.id.enter_instructions);
-        enterTimes = (EditText) findViewById(R.id.enter_times);
         enterMainUse = (EditText) findViewById(R.id.enter_main_usage);
         createButton = (Button) findViewById(R.id.create_button);
         dosages = (Spinner) findViewById(R.id.dosage_spinner);
         addButton = (Button) findViewById(R.id.add_time);
-
+        timesToTake = (TextView) findViewById(R.id.times_to_take);
         //spinner click listener
         dosages.setOnItemSelectedListener(this);
 
@@ -94,7 +96,7 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
                     }
                 });
                 task.execute(enterName.getText().toString(), enterDescrip.getText().toString(), enterDosage.getText().toString(),
-                        dosages.getSelectedItem().toString(), enterInstructions.getText().toString(), enterTimes.getText().toString(),
+                        dosages.getSelectedItem().toString(), enterInstructions.getText().toString(), dosageTimes,
                         enterMainUse.getText().toString());
                 Toast.makeText(AddPrescriptionActivity.this, "Medicine Added", Toast.LENGTH_LONG).show();
                 Intent toHomeFromAdd = new Intent(AddPrescriptionActivity.this, UserAccountHome.class);
@@ -105,7 +107,10 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (numberEntered.toString() == dosages.getSelectedItem().toString()){
+                    Toast.makeText(AddPrescriptionActivity.this, "You've entered the right amount of times already!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 dosageTimePicker = (TimePicker)findViewById(R.id.dosage_timePicker);
                 dosageTimePicker.setVisibility(View.VISIBLE);
                 calendar = Calendar.getInstance();
@@ -114,6 +119,16 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
                 //showTime(hour, min);
                 okButton = (Button)findViewById(R.id.ok_button);
                 okButton.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+
+                        dosageTimes += addToTimes(dosageTimePicker.getHour(), dosageTimePicker.getMinute());
+                        dosageTimePicker.setVisibility(View.GONE);
+                        numberEntered++;
+                    }
+                });
+                cancelButton = (Button)findViewById(R.id.cancel_button);
+                cancelButton.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
                         dosageTimePicker.setVisibility(View.GONE);
@@ -134,26 +149,47 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
     public void onNothingSelected(AdapterView<?> arg0) {
         //eh
     }
-    public void setTime(View view){
-        int hour = dosageTimePicker.getHour();
-        int min = dosageTimePicker.getMinute();
-        showTime(hour,min);
-    }
-    public void showTime(int hour, int min){
+    public String addToTimes(Integer hour, Integer minute){
+        String temp = timesToTake.getText().toString();
+        //temp += hour.toString();
+        //temp += ":";
+        Boolean midnight = false;
+        String st_hour = "";
+        String st_min = "";
+        Integer zero = 0;
         if (hour == 0){
-            hour += 12;
-            format = "AM";
+            hour = 12;
+            midnight = true;
         }
-        else if (hour == 12){
-            format = "PM";
+        else if(hour < 10){
+            st_hour += zero.toString();
         }
-        else if (hour > 12){
-            hour -=12;
-            format = "PM";
+        if (minute < 10){
+            st_min += zero.toString();
+            //temp += zero.toString();
+        }
+        st_hour += hour.toString();
+        st_min += minute.toString();
+        temp += st_hour;
+        temp += ":";
+        temp += st_min;
+        if (hour >= 12){
+            if (midnight == true){
+                temp += " AM";
+            }
+            else{
+                temp += " PM";
+            }
         }
         else{
-            format = "AM";
+            temp += " AM";
         }
+        temp += " , ";
+        timesToTake.setText(temp);
+        String times = "";
+        times += st_hour;
+        times += st_min;
+        return times;
     }
 }
 
