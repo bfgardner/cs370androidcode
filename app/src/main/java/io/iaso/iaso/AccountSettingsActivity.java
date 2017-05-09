@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import io.iaso.iaso.UserAccountHome.UserAccountHome;
 import io.iaso.iaso.auth.AuthenticatorActivity;
+import io.iaso.iaso.core.model.UserData;
+import io.iaso.iaso.network.async.UserDataTask;
 
 public class AccountSettingsActivity extends AppCompatActivity {
 
@@ -41,6 +43,18 @@ public class AccountSettingsActivity extends AppCompatActivity {
         saveButton = (Button)findViewById(R.id.save_button);
         logoutButton = (Button)findViewById(R.id.logout_button);
 
+        String magicalTokenOfDestiny = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5MDYzYjRhMDMzZmI1MjM2NGIyNWJiZCIsImlhdCI6MTQ5MzU4MTA5M30.wv9cNaZf1HAjj4Pt8VZUHj-MulM9ee1CEWVu-kKZB0I";
+
+        UserDataTask task = new UserDataTask();
+        task.setOnUserDataCallbackListener(new UserDataTask.OnUserDataCallbackListener() {
+            @Override
+            public void onCallBack(UserData response) {
+                currentEmail.setText(response.getEmail());
+                currentUsername.setText(response.getUsername());
+            }
+        });
+
+        task.execute(magicalTokenOfDestiny);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -75,8 +75,16 @@
            android:text="Cancel"/>
    </TimePicker>
 
-
-
+   <!-- <Spinner
+        android:id="@+id/delete_time_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Time"/> -->
 
     <Button
         android:id="@+id/create_button"

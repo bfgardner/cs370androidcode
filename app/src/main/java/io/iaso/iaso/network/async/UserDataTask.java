@@ -1,47 +1,65 @@
 package io.iaso.iaso.network.async;
 
-/*public class UserDataTask extends AsyncTask<String,String,UserDataResponse> {
+import android.os.AsyncTask;
+
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import io.iaso.iaso.ApplicationInstance;
+import io.iaso.iaso.core.model.UserData;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+public class UserDataTask extends AsyncTask<String,String,UserData> {
     private OnUserDataCallbackListener listener;
-
+    OkHttpClient client = ApplicationInstance.getNetUtils().client;
     @Override
-    protected UserDataResponse doInBackground(String... params) {
-        String myParams = "";
+    protected UserData doInBackground(String... params) {
 
-        if(params.length > 0) {
-            for(int i = 0; i < params.length; i++) {
-                myParams = myParams + params[i] + "+";
-            }
-        }
-        //none of this will work; gotta wait for the actual ApplicationInstance to be up with the key + id for the api and all that
-        OkHttpClient client = new OkHttpClient();
+        //compose a lookup url?
+        HttpUrl urlBuilder = new HttpUrl.Builder()
+                .scheme("https")
+                .host("api.iaso.io")
+                .addPathSegment("users")
+                .addPathSegment("me")
+                .build();
 
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(ApplicationInstance.getInstance().getBaseApiUrl()).newBuilder();
-        urlBuilder.addQueryParameter("_app_key", ApplicationInstance.getInstance().getApiKey());
-        urlBuilder.addQueryParameter("_app_id", ApplicationInstance.getInstance().getAppId());
-        urlBuilder.addQueryParameter("q", myParams);
 
-        String url = urlBuilder.build().toString();
+        String url = urlBuilder.toString();
+        Request request = new Request.Builder().url(urlBuilder).build();
 
-        Response response = null;
+
 
         try {
-            response = client.newCall(request).execute();
+            Response response = client.newCall(request).execute();
 
             if (response != null) {
-                Gson gson = new Gson();
-                UserDataResponse userDataResponse = gson.fromJson(response.body().string(), UserDataResponse.class);
+                String body = response.body().string();
+                JSONObject jsonObject = new JSONObject(body);
+                UserData userDataResponse = new UserData();
+                userDataResponse.setEmail(jsonObject.getString("email"));
+                userDataResponse.setUsername(jsonObject.getString("name"));
 
                 return userDataResponse;
             }
         } catch (IOException e) {
             // do something with exception
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
         return null;
     }
 
     @Override
-    protected void onPostExecute(UserDataResponse response) {
+    protected void onPostExecute(UserData response) {
         super.onPostExecute(response);
         listener.onCallBack(response);
     }
@@ -51,6 +69,6 @@ package io.iaso.iaso.network.async;
     }
 
    public interface OnUserDataCallbackListener {
-        void onCallBack(UserDataResponse response);
+        void onCallBack(UserData response);
     }
-}*/
+}

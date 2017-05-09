@@ -46,6 +46,10 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
     private Button cancelButton;
     private TextView timesToTake;
     private Integer numberEntered = 0;
+    //private Spinner deleteTime;
+    //private Button deleteButton;
+    private List<String> deleteTimes = new ArrayList<String>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,8 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
         dosages = (Spinner) findViewById(R.id.dosage_spinner);
         addButton = (Button) findViewById(R.id.add_time);
         timesToTake = (TextView) findViewById(R.id.times_to_take);
+
+       // deleteButton = (Button) findViewById(R.id.delete_button);
         //spinner click listener
         dosages.setOnItemSelectedListener(this);
 
@@ -137,6 +143,32 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
             }
         });
 
+
+        /*deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                deleteTime = (Spinner) findViewById(R.id.delete_time_spinner);
+                deleteTime.setOnClickListener(this);
+                deleteTime.setVisibility(View.VISIBLE);
+                final ArrayAdapter<String> timeAdapter = new ArrayAdapter<String>(AddPrescriptionActivity.this, android.R.layout.simple_spinner_item, deleteTimes);
+                timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                deleteTime.setAdapter(timeAdapter);
+                //timeAdapter.notifyDataSetChanged();
+
+                List<String> temp = new ArrayList<String>();
+                String deleteMe = deleteTime.getSelectedItem().toString();
+                for(int i = 0; i < deleteTimes.size(); i++){
+                    if (deleteTimes.get(i) == deleteMe){
+                        deleteTimes.remove(i);
+                        timeAdapter.notifyDataSetChanged();
+                    }
+                }
+                deleteTimes = temp;
+                numberEntered--;
+            }
+        });*/
+
     }
 
     @Override
@@ -189,6 +221,7 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
         String times = "";
         times += st_hour;
         times += st_min;
+        deleteTimes.add(st_hour + ":" + st_min);
         return times;
     }
 }
