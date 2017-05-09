@@ -1,15 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.iaso.iaso.MedicineDetailActivity">
-
+    android:orientation="vertical"
+    tools:context="io.iaso.iaso.MedicineDetailActivity">
+    <TextView
+        android:id="@+id/medicine_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/medicine_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/medicine_dosage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/medicine_instructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/next_dose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Next dose: "/>
+    <TextView
+        android:id="@+id/medicine_times"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/medicine_per_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/main_use"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Used for: "/>
     <Button
         android:id="@+id/edit_medicine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Edit Medicine Info"/>
+    <Button
+        android:id="@+id/delete_medicine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"/>
 
 </LinearLayout>
