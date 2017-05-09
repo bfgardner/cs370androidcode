@@ -14,7 +14,7 @@
         android:layout_gravity="top|center"
         android:background="@color/colorPrimary"
         android:paddingTop="6dp"
-        app:srcCompat="@drawable/iaso_smalltitle" />
+        app:srcCompat="@drawable/iaso_title" />
 
     <!-- tag for the recycler view-->
 
