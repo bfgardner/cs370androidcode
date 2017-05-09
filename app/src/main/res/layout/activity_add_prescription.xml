@@ -4,100 +4,147 @@
     android:id="@+id/activity_add_prescription"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="0dp"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
-    android:paddingTop="0dp"
-    tools:context="io.iaso.iaso.Prescription.AddPrescriptionActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="io.iaso.iaso.Prescription.AddPrescriptionActivity">
     <!-- Nick!  Make me pretty!  <3 -->
 
     <EditText
         android:id="@+id/enter_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter medicine name"/>
+        android:hint="Enter Prescription Name:"
+        android:paddingBottom="16dp"
+        android:textStyle="bold" />
+
     <EditText
-        android:id="@+id/enter_descrip"
-        android:layout_width="wrap_content"
+        android:id="@+id/enter_main_usage"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter description"/>
+        android:hint="What does this medicine treat?"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp" />
+
     <EditText
         android:id="@+id/enter_dosage"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter dosage"/>
+        android:hint="Strength per dose in Milligrams (mg)"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp" />
+
+    <TextView
+        android:id="@+id/doses_per_day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        android:paddingTop="16dp"
+        android:text="Doses per Day:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/dosage_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:prompt="@string/doses_prompt"/> <!-- NEED THIS PROMPT TO ACTUALLY DISPLAY -->
-    <Button
-        android:id="@+id/add_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add a time to take the medicine"/>
+        android:paddingBottom="16dp"
+        android:prompt="@string/doses_prompt" /> <!-- NEED THIS PROMPT TO ACTUALLY DISPLAY -->
 
-    <EditText
-        android:id="@+id/enter_main_usage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Main Usage"/>
-    <EditText
-        android:id="@+id/enter_instructions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Special Notes"/>
-    <TextView
-        android:id="@+id/times_to_take"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "Times to take the medicine: "/>
-
-   <TimePicker
+    <TimePicker
         android:id="@+id/dosage_timePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
         android:timePickerMode="clock"
         android:visibility="gone">
 
-       <Button
-           android:id="@+id/ok_button"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="ok" />
-       <Button
-           android:id="@+id/cancel_button"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_gravity="bottom"
-           android:text="Cancel"/>
-   </TimePicker>
+        <Button
+            android:id="@+id/ok_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:background="@color/colorPrimary"
+            android:text="select"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-   <!-- <Spinner
-        android:id="@+id/delete_time_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
-    <Button
-        android:id="@+id/delete_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete Time"/> -->
+        <Button
+            android:id="@+id/cancel_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:background="@color/colorBright"
+            android:text="Cancel"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </TimePicker>
 
     <Button
-        android:id="@+id/create_button"
+        android:id="@+id/add_time"
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="32dp"
-        android:background="@color/colorPrimary"
-        android:text="Create Prescription"
-        android:textSize="18sp"
+        android:layout_gravity="center"
+        android:background="@color/colorBright"
+        android:text="Add Time(s) to take Medication"
+        android:textSize="16sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/times_to_take"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:text="Times to take the medicine: "
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="italic" />
+
+    <EditText
+        android:id="@+id/enter_instructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Instructions for Taking Mediciation:"
+        android:paddingBottom="16dp"
+        android:paddingTop="32dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/enter_descrip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Short description of Medication:"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp"
+        android:textStyle="bold" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|center"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/create_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="Create Prescription"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 
 </LinearLayout>
