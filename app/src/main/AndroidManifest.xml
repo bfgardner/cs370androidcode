@@ -40,6 +40,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <receiver
+                android:name=".NotificationPublisher.NotificationPublisher"
+                android:enabled="true"
+                android:exported="false"
+                android:process=":remote"/>
+
         </activity>
         <activity android:name="io.iaso.iaso.AccountSettingsActivity" />
         <activity android:name="io.iaso.iaso.MedicineDetailActivity" />
