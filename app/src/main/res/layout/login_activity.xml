@@ -18,7 +18,7 @@
     <ImageView
         android:id="@+id/logo"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="225dp"
         android:layout_marginBottom="16dp"
         android:src="@drawable/iaso_circular_logo" />
 
@@ -37,13 +37,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dip"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login_activity_username_label"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textStyle="bold" />
 
     <ScrollView
         android:id="@+id/login_form"
@@ -70,7 +63,6 @@
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:paddingBottom="16dp"
-                    android:paddingTop="16dp"
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
@@ -114,7 +106,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="36dp"
+                android:paddingTop="24dp"
                 android:text="New to Iaso?"
                 android:textAlignment="center"
                 android:textSize="18sp"
