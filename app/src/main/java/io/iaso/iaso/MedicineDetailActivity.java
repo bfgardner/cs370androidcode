@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import io.iaso.iaso.UserAccountHome.UserAccountHome;
 import io.iaso.iaso.core.model.MedicineResponse;
@@ -16,8 +18,12 @@ public class MedicineDetailActivity extends AppCompatActivity {
     private Button editButton;
     private TextView medicineName;
     private TextView medicineDetails;
+    private TextView dosage;
+    private TextView dosageTimes;
+    private TextView instructions;
     private TextView nextDose;
     private TextView mainUsage;
+    private TextView dosesPerDay;
     private Button deleteButton;
 
     @Override
@@ -29,25 +35,45 @@ public class MedicineDetailActivity extends AppCompatActivity {
         String med_details = information.getExtras().getString("Details");
         String next_dose = information.getExtras().getString("Next");
         String purpose = information.getExtras().getString("MainUse");
+        String doseAmount = information.getExtras().getString("DosageAmount");
+        String doseTimes = information.getExtras().getString("DoseTimes");
+        String instruct = information.getExtras().getString("Instructions");
+        Integer numDoses = information.getExtras().getInt("NumDoses");
         editButton = (Button)findViewById(R.id.edit_medicine);
         deleteButton = (Button)findViewById(R.id.delete_medicine);
-        medicineName = (TextView)findViewById(R.id.medicine_name);
+        medicineName = (TextView) findViewById(R.id.medicine_name);
         medicineName.setText(med_name);
         medicineDetails = (TextView)findViewById(R.id.medicine_detail);
         medicineDetails.setText(med_details);
+        dosage = (TextView)findViewById(R.id.medicine_dosage);
+        dosage.setText(doseAmount);
+        dosageTimes = (TextView)findViewById(R.id.medicine_times);
+        dosageTimes.setText(doseTimes);
+        instructions = (TextView)findViewById(R.id.medicine_instructions);
+        instructions.setText(instruct);
+        dosesPerDay = (TextView)findViewById(R.id.medicine_per_day);
+        dosesPerDay.setText(Integer.toString(numDoses));
         nextDose = (TextView)findViewById(R.id.next_dose);
-        nextDose.setText(nextDose.getText().toString() + next_dose);
+        nextDose.setText(next_dose);
         mainUsage = (TextView)findViewById(R.id.main_use);
-        mainUsage.setText(mainUsage.getText().toString() + purpose);
+        mainUsage.setText(purpose);
+
 
 
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String navSuccess = "Going to edit medicine";
+
                 //pass same object that came in 
                 Intent editMedicine = new Intent(MedicineDetailActivity.this, EditMedicineActivity.class);
+                editMedicine.putExtra("Name", medicineName.getText());
+                editMedicine.putExtra("Details", medicineDetails.getText());
+                editMedicine.putExtra("Next", nextDose.getText());
+                editMedicine.putExtra("MainUse", mainUsage.getText());
+                editMedicine.putExtra("DosageAmount", dosage.getText());
+                editMedicine.putExtra("Instructions", instructions.getText());
+                editMedicine.putExtra("ID", information.getExtras().getString("ID"));
                 startActivity(editMedicine);
             }
         });
@@ -63,6 +89,7 @@ public class MedicineDetailActivity extends AppCompatActivity {
                     }
                 });
                 task.execute(information.getExtras().getString("ID"));
+                Toast.makeText(MedicineDetailActivity.this, "Medicine Deleted", Toast.LENGTH_LONG).show();
                 Intent home = new Intent(MedicineDetailActivity.this, UserAccountHome.class);
                 home.putExtra("success!", "more success!");
                 startActivity(home);

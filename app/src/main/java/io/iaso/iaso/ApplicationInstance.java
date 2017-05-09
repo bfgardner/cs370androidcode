@@ -1,7 +1,10 @@
 package io.iaso.iaso;
 
 import android.app.Application;
+import android.content.Intent;
 
+import io.iaso.iaso.UserAccountHome.UserAccountHome;
+import io.iaso.iaso.auth.AuthenticatorActivity;
 import io.iaso.iaso.network.NetworkUtilities;
 
 public class ApplicationInstance extends Application {

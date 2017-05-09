@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import io.iaso.iaso.UserAccountHome.UserAccountHome;
-import io.iaso.iaso.auth.LoginActivity;
+import io.iaso.iaso.auth.AuthenticatorActivity;
 
 public class AccountSettingsActivity extends AppCompatActivity {
 
@@ -57,7 +57,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //click logout, go to login page
                 String logoutSuccess = "Logged out, back to login";
-                Intent logout =  new Intent(AccountSettingsActivity.this, LoginActivity.class);
+                Intent logout =  new Intent(AccountSettingsActivity.this, AuthenticatorActivity.class);
                 logout.putExtra("Success", logoutSuccess);
                 startActivity(logout);
             }

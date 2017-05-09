@@ -11,6 +11,7 @@
     tools:context="io.iaso.iaso.Prescription.AddPrescriptionActivity"
     android:orientation="vertical">
     <!-- Nick!  Make me pretty!  <3 -->
+
     <EditText
         android:id="@+id/enter_name"
         android:layout_width="wrap_content"
@@ -26,11 +27,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Enter dosage"/>
-    <EditText
-        android:id="@+id/num_take_day"
+
+    <Spinner
+        android:id="@+id/dosage_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/doses_prompt"/> <!-- NEED THIS PROMPT TO ACTUALLY DISPLAY -->
+    <Button
+        android:id="@+id/add_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="How many times per day"/>
+        android:text="Add a time to take the medicine"/>
+
     <EditText
         android:id="@+id/enter_main_usage"
         android:layout_width="wrap_content"
@@ -41,12 +49,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Special Notes"/>
-    <!-- need some way to base this field off of num_take_day input -->
-    <EditText
-        android:id="@+id/enter_times"
+    <TextView
+        android:id="@+id/times_to_take"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Enter times"/>
+        android:text = "Times to take the medicine: "/>
+
+   <TimePicker
+        android:id="@+id/dosage_timePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:timePickerMode="clock"
+        android:visibility="gone">
+
+       <Button
+           android:id="@+id/ok_button"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="ok" />
+       <Button
+           android:id="@+id/cancel_button"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="bottom"
+           android:text="Cancel"/>
+   </TimePicker>
+
+
+
 
     <Button
         android:id="@+id/create_button"

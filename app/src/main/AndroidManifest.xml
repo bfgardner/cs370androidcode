@@ -58,7 +58,6 @@
         <activity
             android:name=".auth.AuthenticatorActivity"
             android:label="Authenticate"
-            android:theme="@android:style/Theme.Dialog"
             android:excludeFromRecents="true"
             android:configChanges="orientation"
             >

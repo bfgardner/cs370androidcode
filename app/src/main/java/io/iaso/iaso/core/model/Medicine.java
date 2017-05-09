@@ -35,6 +35,8 @@ public class Medicine {
         return prev_dose_taken;
     }
 
+    public String getInstructions() {return instructions;}
+
     //public ArrayList<String> getWarnings(){
       //  return warnings;
    // }

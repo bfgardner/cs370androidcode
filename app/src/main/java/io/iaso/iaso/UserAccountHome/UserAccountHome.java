@@ -59,17 +59,13 @@ public class UserAccountHome extends AppCompatActivity {
         //call to API, get medicine repsonse object
 
         scheduleNotification(this, "2030", 1);
-
+        // test send a notification. doesn't work though. 
         medicineCallbackListener = new MedicineCallbackListener() {
             @Override
             public void onMedicineCallback(MedicineResponse response) {
                 //medicineItems = response.getMedicines();
                 RecyclerViewAdapter adapter = new RecyclerViewAdapter(response.getMedicines());
                 UserAccountRecycler.setAdapter(adapter);
-                ArrayList<String > timesToSchedule = new ArrayList<>();
-                for (int i = 0; i < response.getMedicines().size(); i++) {
-                   timesToSchedule = parseDosageTimes(response.getMedicines().get(i));
-                }
             }
         };
         MedicineListTask task = new MedicineListTask();
@@ -176,8 +172,8 @@ public class UserAccountHome extends AppCompatActivity {
 
         //calendar.add(Calendar.MINUTE, shpref.getInt("timeoutint", 30));
 
-        //long notificationDelay = hoursToMillis(delay);
-        long notificationDelay = 600000;
+        long notificationDelay = hoursToMillis(delay);
+        //long notificationDelay = hoursToMillis(delay); I'm Crazy lol
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, notificationDelay, pendingIntent);
 

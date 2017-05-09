@@ -21,16 +21,22 @@ import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Collections;
 
 import io.iaso.iaso.ApplicationInstance;
+import io.iaso.iaso.auth.AuthenticatorActivity;
 import okhttp3.Authenticator;
 import okhttp3.CipherSuite;
 import okhttp3.ConnectionSpec;
 import okhttp3.Credentials;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -73,6 +79,8 @@ final public class NetworkUtilities {
      */
     public static final String AUTH_URI = BASE_URL + "/auth";
 
+    private String mCurrentToken;
+
     public NetworkUtilities() {
         ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
                 .tlsVersions(TlsVersion.TLS_1_2)
@@ -89,36 +97,29 @@ final public class NetworkUtilities {
                         Context context = ApplicationInstance.getInstance();
 
                         AccountManager accountManager = AccountManager.get(context);
-                        Account[] accounts = accountManager.getAccountsByType("com.iaso.iaso.iaso.auth");
+                        Account[] accounts = accountManager.getAccountsByType("io.iaso.iaso.auth");
                         // No account, do not even try to authenticate
                         if (accounts.length == 0) {
                             Log.i(TAG, "... But we dont have any account yet, so I will just back off for now.");
-                            return null;
                         }
 
                         Account account = accounts[0];
 
                         try {
-                            final String mCurrentToken = accountManager.blockingGetAuthToken(account, "", false);
+                            mCurrentToken = accountManager.blockingGetAuthToken(account, "io.iaso.iaso.auth", false);
 
-                            // For now, we just re-install blindly an interceptor
-                            client.interceptors().clear();
-                            Log.i(TAG, "... Installing interceptor after authentication");
-                            client.interceptors().add(new Interceptor() {
-                                @Override
-                                public Response intercept(Chain chain) throws IOException {
-                                    Request request = chain.request();
-                                    Request newReq = request.newBuilder()
-                                            .addHeader("Authorization", mCurrentToken)
-                                            .build();
-                                    Response response = chain.proceed(newReq);
+                            accountManager.invalidateAuthToken("io.iaso.iaso.auth", mCurrentToken);
+                            mCurrentToken = accountManager.blockingGetAuthToken(account, "io.iaso.iaso.auth", false);
 
-                                    return response;
-                                }
-                            });
                             Log.i(TAG, "Install temporary auth token in request");
+                            HttpUrl originalUrl = response.request().url();
+
+                            HttpUrl url = originalUrl.newBuilder()
+                                    .addQueryParameter("access_token", mCurrentToken)
+                                    .build();
+
                             return response.request().newBuilder()
-                                    .addHeader("Authorization", mCurrentToken)
+                                    .url(url)
                                     .build();
 
                         } catch (OperationCanceledException e) {
@@ -127,6 +128,32 @@ final public class NetworkUtilities {
                         } catch (AuthenticatorException e) {
                             Log.e(TAG, "Authentication error");
                             return null;
+                        } catch (IOException e) {
+                            Log.e(TAG, "IO Error");
+                            return null;
+                        }
+                    }
+                })
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        try {
+                            if (mCurrentToken == null) {
+                                return chain.proceed(chain.request());
+                            }
+
+                            HttpUrl originalUrl = chain.request().url();
+
+                            HttpUrl url = originalUrl.newBuilder()
+                                    .addQueryParameter("access_token", mCurrentToken)
+                                    .build();
+
+                            Request request = chain.request();
+                            Request authenticatedRequest = request.newBuilder()
+                                    .url(url)
+                                    .build();
+                            return chain.proceed(authenticatedRequest);
+
                         } catch (IOException e) {
                             Log.e(TAG, "IO Error");
                             return null;
@@ -162,8 +189,13 @@ final public class NetworkUtilities {
                     .build();
 
             Response response = authClient.newCall(request).execute();
-            return response.body().toString();
+            JSONObject jsonObj = new JSONObject(response.body().string());
+            String temp = jsonObj.getString("token");
+            return temp;
         } catch (IOException e) {
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
