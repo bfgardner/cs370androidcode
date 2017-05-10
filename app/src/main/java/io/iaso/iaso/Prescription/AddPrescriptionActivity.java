@@ -127,7 +127,7 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
                 okButton.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
-
+                        //LISTVIEW
                         dosageTimes += addToTimes(dosageTimePicker.getHour(), dosageTimePicker.getMinute());
                         dosageTimePicker.setVisibility(View.GONE);
                         numberEntered++;
