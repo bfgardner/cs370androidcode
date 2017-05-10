@@ -28,28 +28,28 @@ public class UpdateMedicineTask extends AsyncTask<String, String, MedicineRespon
             body += "med_name=" + params[1];
         }
         if ((params[3] != params[4]) && (params[3] != "")){
-            if (body == "") {
+            if (body != "") {
                 body += "&";
             }
             body += "description=" + params[3];
         }
         if ((params[5] != params[6]) && (params[5] != "")){
-            if (body == ""){
+            if (body != ""){
                 body += "&";
             }
             body += "main_usage=" + params[5];
         }
         if ((params[7] != params[8]) && (params[7] != "")){
-            if (body == ""){
+            if (body != ""){
                 body += "&";
             }
             body += "dosage=" + params[7];
         }
         if ((params[9] != params[10]) && (params[9] != "")){
-            if (body == ""){
+            if (body != ""){
                 body += "&";
             }
-            body = "instructions=" + params[9];
+            body += "instructions=" + params[9];
         }
         if (body == ""){
             return null;
