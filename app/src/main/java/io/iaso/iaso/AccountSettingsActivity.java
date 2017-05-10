@@ -7,11 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import io.iaso.iaso.UserAccountHome.UserAccountHome;
 import io.iaso.iaso.auth.AuthenticatorActivity;
 import io.iaso.iaso.core.model.UserData;
 import io.iaso.iaso.network.async.UserDataTask;
+import io.iaso.iaso.network.async.UserUpdateTask;
 
 public class AccountSettingsActivity extends AppCompatActivity {
 
@@ -26,6 +28,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
     private EditText enterUsername;
     private EditText enterOldPass;
     private EditText enterNewPass;
+    private String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +54,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
             public void onCallBack(UserData response) {
                 currentEmail.setText(response.getEmail());
                 currentUsername.setText(response.getUsername());
+                id = response.getID();
             }
         });
 
@@ -59,6 +63,15 @@ public class AccountSettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //click save, go back to Home
+                UserUpdateTask task = new UserUpdateTask();
+                task.setOnUserUpdateCallbackListener(new UserUpdateTask.OnUserUpdateCallbackListener() {
+                    @Override
+                    public void onCallBack(UserData response) {
+                        //do nothing?
+                    }
+                });
+                task.execute(id, enterEmail.getText().toString(), enterUsername.getText().toString());
+                Toast.makeText(AccountSettingsActivity.this, "Changes Saved.", Toast.LENGTH_LONG).show();
                 String saveSettings = "Saved settings, back to home";
                 Intent settingsToHome = new Intent(AccountSettingsActivity.this, UserAccountHome.class);
                 settingsToHome.putExtra("Success", saveSettings);

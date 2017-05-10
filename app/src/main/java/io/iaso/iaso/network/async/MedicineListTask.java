@@ -14,7 +14,6 @@ import java.util.Collections;
 import io.iaso.iaso.ApplicationInstance;
 import io.iaso.iaso.core.model.Medicine;
 import io.iaso.iaso.core.model.MedicineResponse;
-import io.iaso.iaso.core.model.TimeObject;
 import okhttp3.CipherSuite;
 import okhttp3.ConnectionSpec;
 import okhttp3.HttpUrl;
@@ -78,10 +77,10 @@ public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> 
             }
         } catch (IOException e) {
             e.printStackTrace();
-           //return medicineResponse;
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
-            //return medicineResponse; //When the returns are uncommented here, the medicineResponse object isn't correct in the actual return
+            return null; //When the returns are uncommented here, the medicineResponse object isn't correct in the actual return
         }
 
         return medicineResponse;
