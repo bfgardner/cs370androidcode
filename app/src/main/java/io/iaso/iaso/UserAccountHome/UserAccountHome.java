@@ -1,5 +1,6 @@
 package io.iaso.iaso.UserAccountHome;
 
+import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -57,10 +58,17 @@ public class UserAccountHome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_account_home2);
 
-        Intent intent = new Intent(this, AuthenticatorActivity.class);
-        startActivityForResult(intent, 1);
+        Context context = ApplicationInstance.getInstance();
 
-
+        AccountManager accountManager = AccountManager.get(context);
+        Account[] accounts = accountManager.getAccountsByType("io.iaso.iaso.auth");
+        // No account, do not even try to authenticate
+        if (accounts.length == 0) {
+            Intent intent = new Intent(this, AuthenticatorActivity.class);
+            startActivityForResult(intent, 1);
+        } else {
+            afterAuth();
+        }
 
         /*ArrayList<Medicine> items = new ArrayList<>();
         Random randomNumGen = new Random (1000);
@@ -111,30 +119,12 @@ public class UserAccountHome extends AppCompatActivity {
                 startActivity(toNotifSettings);
             }
         });
-    /*
-        String contextText =  "Stuff";//"Take " + medicineItems.get(0).getMed_name() + ", " + medicineItems.get(0).getNextDose();
-
-        Intent resIntent = new Intent(this, MedicineDetailActivity.class);
-
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, resIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Notification notification = new Notification.Builder(this)
-                .setSmallIcon(R.drawable.iaso_bottle)
-                .setContentTitle("Reminder, Take your Meds")
-                .setContentText(contextText)
-                .setContentIntent(pIntent)
-                .build();
-
-
-        NotificationManager notiManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        notiManager.notify(0, notification);
-        */
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         String magicalTokenOfDestiny = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5MDYzYjRhMDMzZmI1MjM2NGIyNWJiZCIsImlhdCI6MTQ5MzU4MTA5M30.wv9cNaZf1HAjj4Pt8VZUHj-MulM9ee1CEWVu-kKZB0I";
 
         scheduleNotification(this, "2030", 1);
@@ -221,7 +211,24 @@ public class UserAccountHome extends AppCompatActivity {
     }
 
 
+    protected void afterAuth() {
+            UserAccountRecycler = (RecyclerView) findViewById(R.id.recycler_view);
+            UserAccountlayoutManager = new LinearLayoutManager(getBaseContext());
+            UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
+            //call to API, get medicine repsonse object
+            medicineCallbackListener = new MedicineCallbackListener() {
+                @Override
+                public void onMedicineCallback(MedicineResponse response) {
+                    //medicineItems = response.getMedicines();
+                    RecyclerViewAdapter adapter = new RecyclerViewAdapter(response.getMedicines());
+                    UserAccountRecycler.setAdapter(adapter);
+                }
+            };
+            MedicineListTask task = new MedicineListTask();
 
+            task.setMedicineCallbackListener(medicineCallbackListener);
+            task.execute();
+    }
 
 }
 

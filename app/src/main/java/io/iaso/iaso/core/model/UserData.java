@@ -13,6 +13,8 @@ public class UserData {
     private ArrayList<MedicineResponse> medicines;
     private Pharmacy favorite_pharmacy;
 
+    public void setEmail(String _email){email = _email;}
+    public void setUsername(String _username){username = _username;}
     public String getUsername(){
         return username;
     }
