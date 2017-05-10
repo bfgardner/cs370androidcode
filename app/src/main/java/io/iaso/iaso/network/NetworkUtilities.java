@@ -112,14 +112,10 @@ final public class NetworkUtilities {
                             mCurrentToken = accountManager.blockingGetAuthToken(account, "io.iaso.iaso.auth", false);
 
                             Log.i(TAG, "Install temporary auth token in request");
-                            HttpUrl originalUrl = response.request().url();
-
-                            HttpUrl url = originalUrl.newBuilder()
-                                    .addQueryParameter("access_token", mCurrentToken)
-                                    .build();
 
                             return response.request().newBuilder()
-                                    .url(url)
+                                    .removeHeader("Authorization")
+                                    .addHeader("Authorization", String.format("Bearer %s", mCurrentToken))
                                     .build();
 
                         } catch (OperationCanceledException e) {
@@ -142,16 +138,12 @@ final public class NetworkUtilities {
                                 return chain.proceed(chain.request());
                             }
 
-                            HttpUrl originalUrl = chain.request().url();
-
-                            HttpUrl url = originalUrl.newBuilder()
-                                    .addQueryParameter("access_token", mCurrentToken)
-                                    .build();
-
                             Request request = chain.request();
                             Request authenticatedRequest = request.newBuilder()
-                                    .url(url)
+                                    .removeHeader("Authorization")
+                                    .addHeader("Authorization", String.format("Bearer %s", mCurrentToken))
                                     .build();
+
                             return chain.proceed(authenticatedRequest);
 
                         } catch (IOException e) {
