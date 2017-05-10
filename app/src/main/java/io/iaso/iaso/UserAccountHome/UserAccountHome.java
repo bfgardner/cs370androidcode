@@ -124,7 +124,6 @@ public class UserAccountHome extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         String magicalTokenOfDestiny = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5MDYzYjRhMDMzZmI1MjM2NGIyNWJiZCIsImlhdCI6MTQ5MzU4MTA5M30.wv9cNaZf1HAjj4Pt8VZUHj-MulM9ee1CEWVu-kKZB0I";
 
         scheduleNotification(this, "2030", 1);
@@ -169,9 +168,9 @@ public class UserAccountHome extends AppCompatActivity {
         //calendar.add(Calendar.MINUTE, shpref.getInt("timeoutint", 30));
 
         long notificationDelay = hoursToMillis(delay);
-        //long notificationDelay = hoursToMillis(delay); I'm Crazy lol
+        //long notificationDelay = hoursToMillis(delay); I'm Crazy
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, 0 , pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, notificationDelay, pendingIntent);
 
     }
 
