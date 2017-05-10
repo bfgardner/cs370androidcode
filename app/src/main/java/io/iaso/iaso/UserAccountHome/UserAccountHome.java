@@ -1,5 +1,6 @@
 package io.iaso.iaso.UserAccountHome;
 
+import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -49,10 +50,17 @@ public class UserAccountHome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_account_home2);
 
-        Intent intent = new Intent(this, AuthenticatorActivity.class);
-        startActivityForResult(intent, 1);
+        Context context = ApplicationInstance.getInstance();
 
-
+        AccountManager accountManager = AccountManager.get(context);
+        Account[] accounts = accountManager.getAccountsByType("io.iaso.iaso.auth");
+        // No account, do not even try to authenticate
+        if (accounts.length == 0) {
+            Intent intent = new Intent(this, AuthenticatorActivity.class);
+            startActivityForResult(intent, 1);
+        } else {
+            afterAuth();
+        }
 
         /*ArrayList<Medicine> items = new ArrayList<>();
         Random randomNumGen = new Random (1000);
@@ -104,7 +112,7 @@ public class UserAccountHome extends AppCompatActivity {
             }
         });
 
-        String contextText =  "Stuff";//"Take " + medicineItems.get(0).getMed_name() + ", " + medicineItems.get(0).getNextDose();
+        String contextText = "Stuff";//"Take " + medicineItems.get(0).getMed_name() + ", " + medicineItems.get(0).getNextDose();
 
         Intent resIntent = new Intent(this, MedicineDetailActivity.class);
 
@@ -121,30 +129,30 @@ public class UserAccountHome extends AppCompatActivity {
         NotificationManager notiManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notiManager.notify(0, notification);
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        String magicalTokenOfDestiny = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5MDYzYjRhMDMzZmI1MjM2NGIyNWJiZCIsImlhdCI6MTQ5MzU4MTA5M30.wv9cNaZf1HAjj4Pt8VZUHj-MulM9ee1CEWVu-kKZB0I";
-
-        UserAccountRecycler = (RecyclerView) findViewById(R.id.recycler_view);
-        UserAccountlayoutManager = new LinearLayoutManager(getBaseContext());
-        UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
-        //call to API, get medicine repsonse object
-        medicineCallbackListener = new MedicineCallbackListener() {
-            @Override
-            public void onMedicineCallback(MedicineResponse response) {
-                //medicineItems = response.getMedicines();
-                RecyclerViewAdapter adapter = new RecyclerViewAdapter(response.getMedicines());
-                UserAccountRecycler.setAdapter(adapter);
-            }
-        };
-        MedicineListTask task = new MedicineListTask();
-
-        task.setMedicineCallbackListener(medicineCallbackListener);
-        task.execute(magicalTokenOfDestiny); //magic token??
+        afterAuth();
     }
 
+    protected void afterAuth() {
+            UserAccountRecycler = (RecyclerView) findViewById(R.id.recycler_view);
+            UserAccountlayoutManager = new LinearLayoutManager(getBaseContext());
+            UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
+            //call to API, get medicine repsonse object
+            medicineCallbackListener = new MedicineCallbackListener() {
+                @Override
+                public void onMedicineCallback(MedicineResponse response) {
+                    //medicineItems = response.getMedicines();
+                    RecyclerViewAdapter adapter = new RecyclerViewAdapter(response.getMedicines());
+                    UserAccountRecycler.setAdapter(adapter);
+                }
+            };
+            MedicineListTask task = new MedicineListTask();
+
+            task.setMedicineCallbackListener(medicineCallbackListener);
+            task.execute();
+    }
 }
 
