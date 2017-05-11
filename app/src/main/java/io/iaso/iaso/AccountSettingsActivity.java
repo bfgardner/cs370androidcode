@@ -26,12 +26,9 @@ public class AccountSettingsActivity extends AppCompatActivity {
     private TextView currentEmail;
     private TextView currentUsername;
     private TextView changeEmail;
-    private TextView changePassword;
     private TextView changeUsername;
     private EditText enterEmail;
     private EditText enterUsername;
-    private EditText enterOldPass;
-    private EditText enterNewPass;
     private String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +41,6 @@ public class AccountSettingsActivity extends AppCompatActivity {
         currentUsername = (TextView)findViewById(R.id.current_username);
         changeUsername = (TextView)findViewById(R.id.change_username);
         enterUsername = (EditText)findViewById(R.id.enter_username);
-        changePassword = (TextView)findViewById(R.id.change_password);
-        enterOldPass = (EditText)findViewById(R.id.enter_current_password);
-        enterNewPass = (EditText)findViewById(R.id.enter_new_password);
         saveButton = (Button)findViewById(R.id.save_button);
         logoutButton = (Button)findViewById(R.id.logout_button);
 

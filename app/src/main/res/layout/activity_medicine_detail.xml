@@ -128,7 +128,7 @@
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
-            android:text="Edit Prescription"
+            android:text="Edit Info"
             android:textSize="18sp"
             android:textStyle="bold" />
 
