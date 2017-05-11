@@ -30,19 +30,32 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!--<TextView-->
-                <!--android:id="@+id/recycler_medicine_title"-->
-                <!--android:layout_width="40dp"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:background="@drawable/circle"-->
-                <!--android:gravity="center_vertical" />-->
-
-            <TextView
-                android:id="@+id/recycler_medicine_name"
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:layout_weight="10"/>
+                android:layout_height="wrap_content"
+                android:padding="10px"
+                android:orientation="horizontal"  >
+
+                <TextView
+                    android:id="@+id/recycler_medicine_title"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:padding="2px"
+                    android:background="@drawable/circle"
+                    android:textColor="@color/cardview_light_background"
+                    android:textAlignment="center"
+                    android:textSize="11pt"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:id="@+id/recycler_medicine_name"
+                    android:paddingLeft="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_weight="10"/>
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
