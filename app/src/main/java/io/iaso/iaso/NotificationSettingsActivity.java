@@ -23,30 +23,28 @@ import io.iaso.iaso.network.async.NotificationUpdateTask;
 
 public class NotificationSettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Button save_notif_button;
-    private TextView notificationType;
     private TextView initialAlarm;
-    private EditText enterNotifType;
-    private EditText enterInitialAlarm;
+    private TextView currentInitialAlarm;
     private TextView nextAlarm;
-    private EditText enterNextAlarm;
+    private TextView currentNextAlarm;
     private String id;
     private Spinner selectInitialAlarm;
+    private Spinner selectNextAlarm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_settings);
 
         save_notif_button=(Button)findViewById(R.id.save_notif_button);
-        notificationType = (TextView)findViewById(R.id.notif_type);
         initialAlarm=(TextView)findViewById(R.id.initial_alarm);
-        enterNotifType=(EditText)findViewById(R.id.user_notif_type);
-        enterInitialAlarm=(EditText)findViewById(R.id.user_initial_alarm);
+        currentInitialAlarm=(TextView)findViewById(R.id.user_initial_alarm);
         nextAlarm=(TextView) findViewById(R.id.next_alarm);
-        enterNextAlarm=(EditText)findViewById(R.id.user_next_alarm);
+        currentNextAlarm=(TextView)findViewById(R.id.user_next_alarm);
         selectInitialAlarm = (Spinner) findViewById(R.id.initial_alarm_spinner);
+        selectNextAlarm = (Spinner) findViewById(R.id.next_alarm_spinner);
 
         selectInitialAlarm.setOnItemSelectedListener(this);
-
+        selectNextAlarm.setOnItemSelectedListener(this);
         //spinner drop down
         List<String> items = new ArrayList<String>();
         items.add("2 hours before");
@@ -55,10 +53,20 @@ public class NotificationSettingsActivity extends AppCompatActivity implements A
         items.add("15 minutes before");
         items.add("On time");
 
+        List<String> alarmItems = new ArrayList<String>();
+        alarmItems.add("Every 5 minutes");
+        alarmItems.add("Every 10 minutes");
+        alarmItems.add("Every 15 minutes");
+        alarmItems.add("Every 20 minutes");
+        alarmItems.add ("Every 30 minutes");
         //adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         selectInitialAlarm.setAdapter(dataAdapter);
+
+        ArrayAdapter<String> alarmAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, alarmItems);
+        alarmAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        selectNextAlarm.setAdapter(alarmAdapter);
 
         String magicalTokenOfDestiny = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5MDYzYjRhMDMzZmI1MjM2NGIyNWJiZCIsImlhdCI6MTQ5MzU4MTA5M30.wv9cNaZf1HAjj4Pt8VZUHj-MulM9ee1CEWVu-kKZB0I";
 
@@ -71,8 +79,18 @@ public class NotificationSettingsActivity extends AppCompatActivity implements A
                 if (init >= 60){
                     init = init / 60;
                 }
-                enterInitialAlarm.setText(Float.toString(init));
-                enterNextAlarm.setText(Float.toString(60 * Float.parseFloat(response.getAdditional_notif())));
+                String temp = Float.toString(init);
+                if (init > 2){
+                    temp += " minutes before";
+                }
+                else if (init != 0.0) {
+                    temp += " hours before";
+                }
+                else{
+                    temp = "At the time the medicine is taken";
+                }
+                currentInitialAlarm.setText(temp);
+                currentNextAlarm.setText("Every " + Float.toString(60 * Float.parseFloat(response.getAdditional_notif())) + " minutes after the first");
                 id = response.getID();
             }
         });
@@ -90,7 +108,39 @@ public class NotificationSettingsActivity extends AppCompatActivity implements A
                         //do nothing?
                     }
                 });
-                task.execute(id, enterInitialAlarm.getText().toString(), Float.toString(Float.parseFloat(enterNextAlarm.getText().toString()) / 60));
+                String initial_alarm = selectInitialAlarm.getSelectedItem().toString();
+                if (initial_alarm.equalsIgnoreCase("2 hours before")){
+                    initial_alarm = "2.0";
+                }
+                else if (initial_alarm.equalsIgnoreCase("1 hour before")){
+                    initial_alarm = "1.0";
+                }
+                else if (initial_alarm.equalsIgnoreCase("30 minutes before")){
+                    initial_alarm = "0.5";
+                }
+                else if (initial_alarm.equalsIgnoreCase("15 minutes before")){
+                    initial_alarm = "0.25";
+                }
+                else {
+                    initial_alarm = "0.0";
+                }
+                String next_alarm = selectNextAlarm.getSelectedItem().toString();
+                    if (next_alarm.equalsIgnoreCase("Every 5 minutes")){
+                        next_alarm = "5";
+                    }
+                    else if (next_alarm.equalsIgnoreCase("Every 10 minutes")){
+                        next_alarm = "10";
+                    }
+                    else if (next_alarm.equalsIgnoreCase("Every 15 minutes")){
+                        next_alarm = "15";
+                    }
+                    else if (next_alarm.equalsIgnoreCase("Every 20 minutes")){
+                        next_alarm = "20";
+                    }
+                    else if (next_alarm.equalsIgnoreCase("Every 30 minutes")){
+                        next_alarm = "30";
+                    }
+                task.execute(id, initial_alarm, Float.toString(Float.parseFloat(next_alarm) / 60));
                 Toast.makeText(NotificationSettingsActivity.this, "Changes saved.", Toast.LENGTH_LONG).show();
                 String saveNotifSettings = "Saved settings, back to home";
                 Intent notifSettingsToHome = new Intent(NotificationSettingsActivity.this, UserAccountHome.class);

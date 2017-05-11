@@ -48,6 +48,8 @@ public class MedicineDetailActivity extends AppCompatActivity {
         dosage = (TextView)findViewById(R.id.medicine_dosage);
         dosage.setText(doseAmount);
         dosageTimes = (TextView)findViewById(R.id.medicine_times);
+        //parse string and get better version...
+        //doseTimes = pretty_dose_times(doseTimes);
         dosageTimes.setText(doseTimes);
         instructions = (TextView)findViewById(R.id.medicine_instructions);
         instructions.setText(instruct);
@@ -97,3 +99,35 @@ public class MedicineDetailActivity extends AppCompatActivity {
         });
     }
 }
+
+/*public String pretty_dose_times(String times){
+    String temp = "";
+    String subString;
+    Integer hour;
+    for (int i = 0; i < times.length(); i+=4){
+        subString = times.substring(i,i+4);
+        hour = Integer.parseInt(subString.substring(0,2));
+        if (hour > 12){
+            hour = hour - 12;
+            temp = Integer.toString(hour);
+            temp += ":";
+            temp += times.substring(i+2,i+4);
+            temp += " PM";
+        }
+        else if (hour == 0){
+            hour = 12;
+            temp = Integer.toString(hour);
+            temp += ":";
+            temp += times.substring(i+2,i+4);
+            temp += " AM";
+        }
+        else{
+            temp = Integer.toString(hour);
+            temp += ":";
+            temp += times.substring(i+2,i+4);
+            temp += " AM";
+        }
+        temp += "   ";
+    }
+    return temp;
+}}*/
