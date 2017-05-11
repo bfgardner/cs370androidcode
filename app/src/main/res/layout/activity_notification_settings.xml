@@ -12,7 +12,7 @@
         android:id="@+id/bottle"
         android:layout_width="match_parent"
         android:layout_height="140dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         app:srcCompat="@drawable/iaso_bottle" />
 
     <TextView
@@ -36,7 +36,7 @@
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="30dp"
+        android:paddingTop="16dp"
         android:text="Set New Initial Reminder:"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -51,7 +51,7 @@
         android:id="@+id/next_alarm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="30dp"
+        android:paddingTop="16dp"
         android:text="Notifications after Initial Reminder:"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -70,7 +70,7 @@
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="30dp"
+        android:paddingTop="16dp"
         android:text="Set New Reminder Frequency:"
         android:textSize="18sp"
         android:textStyle="bold" />

@@ -86,29 +86,6 @@
         android:paddingBottom="12dp"
         android:paddingEnd="6dp" />
 
-    <TextView
-        android:id="@+id/change_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="30dp"
-        android:text="Change Password:"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/enter_current_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Current Password: "
-        android:inputType="textPassword" />
-
-    <EditText
-        android:id="@+id/enter_new_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter New Password: "
-        android:inputType="textPassword" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
