@@ -1,49 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.iaso.iaso.NotificationSettingsActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="io.iaso.iaso.NotificationSettingsActivity">
+
+    <ImageView
+        android:id="@+id/bottle"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginBottom="32dp"
+        app:srcCompat="@drawable/iaso_bottle" />
 
     <TextView
         android:id="@+id/initial_alarm"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="When would you like to be notified to take your medicine?"/>
+        android:text="Initial Medication Reminder (before dose):"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/user_initial_alarm"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
-    <TextView
-        android:id="@+id/next_alarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="How often would you like to be notified after the first time?"/>
-    <!-- all this is so ugly I'm so sorry Nick make it snazzy plz-->
+        android:paddingBottom="12dp"
+        android:paddingTop="6dp"
+        android:text="[initial reminder time]"
+        android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/user_next_alarm"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
-
+        android:paddingTop="30dp"
+        android:text="Set New Initial Reminder:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/initial_alarm_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="16dp" />
+
+    <TextView
+        android:id="@+id/next_alarm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:text="Notifications after Initial Reminder:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+    <!-- all this is so ugly I'm so sorry Nick make it snazzy plz-->
+
+    <TextView
+        android:id="@+id/user_next_alarm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp"
+        android:paddingTop="6dp"
+        android:text="[notification frequency]"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:text="Set New Reminder Frequency:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
     <Spinner
         android:id="@+id/next_alarm_spinner"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="16dp"/>
-    <Button
-        android:id="@+id/save_notif_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save Changes"/>
+        android:paddingBottom="16dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|center"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/save_notif_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="Save Changes"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 </LinearLayout>
