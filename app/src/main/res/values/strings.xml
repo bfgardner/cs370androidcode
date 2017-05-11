@@ -25,15 +25,15 @@
     <string
         name="ui_activity_authenticating">Authenticating\u2026</string>
     <string
-        name="login_activity_loginfail_text_both">The username or password isn\'t valid. A Sample SyncAdapter account is
+        name="login_activity_loginfail_text_both">The username or password isn\'t valid. An iaso.io account is
         required. Please try again. </string>
     <string
         name="login_activity_loginfail_text_pwonly">You entered the wrong password or your account has changed.
         Please re-enter your password.</string>
     <string
-        name="label">Sample SyncAdapter</string>
+        name="label">iaso.io</string>
     <string
-        name="login_activity_newaccount_text">Sign in to your Sample SyncAdapter account. </string>
+        name="login_activity_newaccount_text">Sign in to your iaso.io account. </string>
     <string
         name="login_activity_loginfail_text_pwmissing">Type the password for this account.</string>
     <string name="title_activity_user_account_home">UserAccountHome</string>

@@ -123,6 +123,16 @@
                 android:text="Create Account"
                 android:textSize="18sp" />
 
+            <!--&lt;!&ndash; forgot password button &ndash;&gt;-->
+            <!--<Button-->
+                <!--android:id="@+id/reset_password_button"-->
+                <!--style="?android:textAppearanceSmall"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="4dp"-->
+                <!--android:background="@color/colorPrimaryDark"-->
+                <!--android:text="Forgot Password"-->
+                <!--android:textSize="12sp" />-->
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
