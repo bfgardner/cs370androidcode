@@ -58,6 +58,13 @@
                 someone who explicitly knows the class name
             -->
         </activity>
+
+        <receiver
+            android:name=".NotificationPublisher.NotificationPublisher"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":remote"/>
+
     </application>
 
 </manifest>
