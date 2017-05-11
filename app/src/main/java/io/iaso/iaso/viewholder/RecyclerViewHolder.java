@@ -4,6 +4,7 @@ package io.iaso.iaso.viewholder;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -18,6 +19,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     //private TextView medicineDosageTextView;
     private TextView medicineDetailTextView;
     private TextView medicineNextTimeTextView;
+    private LinearLayout medicineCard;
 
 
     String mainUse;
@@ -32,10 +34,11 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         medicineNameTextView = (TextView)itemView.findViewById(R.id.recycler_medicine_name);
+        medicineCard = (LinearLayout) itemView.findViewById(R.id.medicine_card);
         medicineDetailTextView = (TextView)itemView.findViewById(R.id.recycler_medicine_details);
         medicineNextTimeTextView = (TextView)itemView.findViewById(R.id.recycler_medicine_next_dose);
 
-        medicineNameTextView.setOnClickListener(new View.OnClickListener() {
+        medicineCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String medicineName = medicineNameTextView.getText().toString();

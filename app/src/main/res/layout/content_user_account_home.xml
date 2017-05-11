@@ -21,6 +21,9 @@
     <!-- The Next Step: build each card element to look like the wireframes. -->
 
         <LinearLayout
+            android:id="@+id/medicine_card"
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
