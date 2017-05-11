@@ -144,30 +144,6 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
         });
 
 
-        /*deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                deleteTime = (Spinner) findViewById(R.id.delete_time_spinner);
-                deleteTime.setOnClickListener(this);
-                deleteTime.setVisibility(View.VISIBLE);
-                final ArrayAdapter<String> timeAdapter = new ArrayAdapter<String>(AddPrescriptionActivity.this, android.R.layout.simple_spinner_item, deleteTimes);
-                timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                deleteTime.setAdapter(timeAdapter);
-                //timeAdapter.notifyDataSetChanged();
-
-                List<String> temp = new ArrayList<String>();
-                String deleteMe = deleteTime.getSelectedItem().toString();
-                for(int i = 0; i < deleteTimes.size(); i++){
-                    if (deleteTimes.get(i) == deleteMe){
-                        deleteTimes.remove(i);
-                        timeAdapter.notifyDataSetChanged();
-                    }
-                }
-                deleteTimes = temp;
-                numberEntered--;
-            }
-        });*/
 
     }
 
@@ -183,8 +159,7 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
     }
     public String addToTimes(Integer hour, Integer minute){
         String temp = timesToTake.getText().toString();
-        //temp += hour.toString();
-        //temp += ":";
+        String pacific_hr = hour.toString();
         Boolean midnight = false;
         String st_hour = "";
         String st_min = "";
@@ -195,14 +170,19 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
         }
         else if(hour < 10){
             st_hour += zero.toString();
+            st_hour += hour.toString();
+            pacific_hr = st_hour;
+        }
+        else if (hour > 12){
+            pacific_hr = Integer.toString(hour - 12);
         }
         if (minute < 10){
             st_min += zero.toString();
             //temp += zero.toString();
         }
-        st_hour += hour.toString();
+        //st_hour += hour.toString();
         st_min += minute.toString();
-        temp += st_hour;
+        temp += pacific_hr;
         temp += ":";
         temp += st_min;
         if (hour >= 12){
