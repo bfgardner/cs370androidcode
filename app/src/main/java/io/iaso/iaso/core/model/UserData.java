@@ -9,26 +9,16 @@ import java.util.ArrayList;
 public class UserData {
     private String username; //display purpose
     private String email; //user should be able to change their email
-    private String trusted_contact_email;
-    private ArrayList<MedicineResponse> medicines;
-    private Pharmacy favorite_pharmacy;
+    private String ID;
 
     public void setEmail(String _email){email = _email;}
     public void setUsername(String _username){username = _username;}
+    public void setID(String id){ID = id;}
     public String getUsername(){
         return username;
     }
-
-    public String getTrusted_contact_email(){
-        return trusted_contact_email;
-    }
-
+    public String getID(){return ID;}
     public String getEmail() {return email;}
 
-    public Pharmacy getFavorite_pharmacy(){
-        return favorite_pharmacy;
-    }
-
-    public ArrayList<MedicineResponse> getMedicines() {return medicines;}
 
 }

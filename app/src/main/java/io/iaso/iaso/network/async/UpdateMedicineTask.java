@@ -24,20 +24,32 @@ public class UpdateMedicineTask extends AsyncTask<String, String, MedicineRespon
         //need some logic to calculate nextDose time
         MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
         String body = "";
-        if (params[1] != params[2]){
+        if ((params[1] != params[2]) && (params[1] != "")){
             body += "med_name=" + params[1];
         }
-        if (params[3] != params[4]){
-            body += "&description=" + params[3];
+        if ((params[3] != params[4]) && (params[3] != "")){
+            if (body != "") {
+                body += "&";
+            }
+            body += "description=" + params[3];
         }
-        if (params[5] != params[6]){
-            body += "&main_usage=" + params[5];
+        if ((params[5] != params[6]) && (params[5] != "")){
+            if (body != ""){
+                body += "&";
+            }
+            body += "main_usage=" + params[5];
         }
-        if (params[7] != params[8]){
-            body += "&dosage=" + params[7];
+        if ((params[7] != params[8]) && (params[7] != "")){
+            if (body != ""){
+                body += "&";
+            }
+            body += "dosage=" + params[7];
         }
-        if (params[9] != params[10]){
-            body += "&instructions=" + params[9];
+        if ((params[9] != params[10]) && (params[9] != "")){
+            if (body != ""){
+                body += "&";
+            }
+            body += "instructions=" + params[9];
         }
         if (body == ""){
             return null;

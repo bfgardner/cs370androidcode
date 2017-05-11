@@ -46,7 +46,7 @@ public class UserDataTask extends AsyncTask<String,String,UserData> {
                 UserData userDataResponse = new UserData();
                 userDataResponse.setEmail(jsonObject.getString("email"));
                 userDataResponse.setUsername(jsonObject.getString("name"));
-
+                userDataResponse.setID(jsonObject.getString("id"));
                 return userDataResponse;
             }
         } catch (IOException e) {

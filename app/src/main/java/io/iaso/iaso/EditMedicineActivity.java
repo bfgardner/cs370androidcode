@@ -64,6 +64,7 @@ public class EditMedicineActivity extends AppCompatActivity {
                 });
                 task.execute(information.getExtras().getString("ID"), enterName.getText().toString(), med_name, enterDetails.getText().toString(),
                         med_details, enterPurpose.getText().toString(), purpose, enterDosage.getText().toString(), dosage, enterInstructions.getText().toString(), instructions);
+                Toast.makeText(EditMedicineActivity.this, "Changes Saved.", Toast.LENGTH_LONG).show();
                 Intent save_go_back = new Intent (EditMedicineActivity.this, UserAccountHome.class);
                 save_go_back.putExtra("Success", savedChanges);
                 startActivity(save_go_back);

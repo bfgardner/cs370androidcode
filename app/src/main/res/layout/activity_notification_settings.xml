@@ -27,18 +27,20 @@
         android:id="@+id/user_initial_alarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="x hours/minutes before"/>
+        />
     <TextView
         android:id="@+id/next_alarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="How often would you like to be notified after the first time?"/>
     <!-- all this is so ugly I'm so sorry Nick make it snazzy plz-->
+    <!-- hours -->
     <EditText
         android:id="@+id/user_next_alarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Every x minutes"/>
+        />
+    <!-- minutes -->
     <Button
         android:id="@+id/save_notif_button"
         android:layout_width="wrap_content"

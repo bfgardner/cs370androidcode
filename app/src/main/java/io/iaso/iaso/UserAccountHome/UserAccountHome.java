@@ -70,21 +70,6 @@ public class UserAccountHome extends AppCompatActivity {
             afterAuth();
         }
 
-        /*ArrayList<Medicine> items = new ArrayList<>();
-        Random randomNumGen = new Random (1000);
-        int randomVal = 0;
-        for (int i = 0; i < 100; i++) {
-            randomVal = randomNumGen.nextInt();
-            randomVal = Math.abs(randomVal);
-            items.add(new Medicine.Builder()
-                    .name("Medicine  name" + " " + String.valueOf(i))
-                    .nextDose("Next Dose at " + String.valueOf((i + randomVal) % 12) + ":" + String.valueOf(randomVal % 6) + String.valueOf(i % 9))
-                    .description("Here are some details about Medicine name" + " " + String.valueOf(i))
-                    .build());
-        }
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(items);
-        UserAccountRecycler.setAdapter(adapter);*/
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         settingsButton = (Button) findViewById(R.id.settings_button);
@@ -219,8 +204,10 @@ public class UserAccountHome extends AppCompatActivity {
                 @Override
                 public void onMedicineCallback(MedicineResponse response) {
                     //medicineItems = response.getMedicines();
-                    RecyclerViewAdapter adapter = new RecyclerViewAdapter(response.getMedicines());
-                    UserAccountRecycler.setAdapter(adapter);
+                    if (response != null ) {
+                        RecyclerViewAdapter adapter = new RecyclerViewAdapter(response.getMedicines());
+                        UserAccountRecycler.setAdapter(adapter);
+                    }
                 }
             };
             MedicineListTask task = new MedicineListTask();
