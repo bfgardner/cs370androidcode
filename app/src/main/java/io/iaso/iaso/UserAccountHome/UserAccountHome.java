@@ -20,7 +20,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -60,6 +59,8 @@ public class UserAccountHome extends AppCompatActivity {
 
         Context context = ApplicationInstance.getInstance();
 
+        //scheduleNotification(this, "2247", 1);
+
         AccountManager accountManager = AccountManager.get(context);
         Account[] accounts = accountManager.getAccountsByType("io.iaso.iaso.auth");
         // No account, do not even try to authenticate
@@ -67,7 +68,7 @@ public class UserAccountHome extends AppCompatActivity {
             Intent intent = new Intent(this, AuthenticatorActivity.class);
             startActivityForResult(intent, 1);
         } else {
-            afterAuth();
+            afterAuth(this);
         }
 
 
@@ -111,8 +112,6 @@ public class UserAccountHome extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         String magicalTokenOfDestiny = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5MDYzYjRhMDMzZmI1MjM2NGIyNWJiZCIsImlhdCI6MTQ5MzU4MTA5M30.wv9cNaZf1HAjj4Pt8VZUHj-MulM9ee1CEWVu-kKZB0I";
 
-        scheduleNotification(this, "2030", 1);
-
         UserAccountRecycler = (RecyclerView) findViewById(R.id.recycler_view);
         UserAccountlayoutManager = new LinearLayoutManager(getBaseContext());
         UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
@@ -131,14 +130,15 @@ public class UserAccountHome extends AppCompatActivity {
         task.execute(magicalTokenOfDestiny); //magic token??
     }
 
-    public void scheduleNotification(Context context, String delay, int notificationId) {
+    public void scheduleNotification(Context context, String delay, int notificationId, Medicine medicine) {
 
-        String contentText =  "Stuff";//"Take " + medicineItems.get(0).getMed_name() + ", " + medicineItems.get(0).getNextDose();
+        String contentText =  medicine.getDescription();
+        String title = medicine.getMed_name();
         Intent resIntent = new Intent(context, UserAccountHome.class); // intent to take you to once you click on the notification, I think.
         PendingIntent pIntent = PendingIntent.getActivity(context, notificationId, resIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.iaso_bottle)
-                .setContentTitle("Reminder, Take your Meds")
+                .setContentTitle(title)
                 .setContentText(contentText)
                 .setContentIntent(pIntent);
         //.setAutoCancel(true); // sets up params for notification
@@ -150,12 +150,10 @@ public class UserAccountHome extends AppCompatActivity {
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notificationId, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        //calendar.add(Calendar.MINUTE, shpref.getInt("timeoutint", 30));
-
         long notificationDelay = hoursToMillis(delay);
         //long notificationDelay = hoursToMillis(delay); I'm Crazy
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, notificationDelay, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, notificationDelay, AlarmManager.INTERVAL_DAY , pendingIntent);
 
     }
 
@@ -163,7 +161,7 @@ public class UserAccountHome extends AppCompatActivity {
         String dosageTimes = medicine.getDosage_times(); // times each dose gets taken
         Integer doseFrequency = medicine.getDoses_per_day(); // amount of doses per day
         ArrayList<String> times = new ArrayList<>();
-        String s = " ";
+        String s = "";
         for (int i = 0; i < dosageTimes.length(); i++)
         {
             s += dosageTimes.charAt(i);
@@ -171,7 +169,7 @@ public class UserAccountHome extends AppCompatActivity {
             if (i % 4 == 3)
             {
                 times.add(s);
-                s = " ";
+                s = "";
             }
         }
 
@@ -186,8 +184,8 @@ public class UserAccountHome extends AppCompatActivity {
         //calendar.setTime(); // may use for later
         long hours = calendar.get(Calendar.HOUR_OF_DAY);
         long minutes = calendar.get(Calendar.MINUTE);
-        long delayHours = Integer.parseInt(time.substring(0, 2)) - hours;
-        long delayMinutes = Integer.parseInt(time.substring(2, 4)) - minutes;
+        long delayHours = Integer.valueOf(time.substring(0, 2)) - hours;
+        long delayMinutes = Integer.valueOf(time.substring(2, 4)) - minutes;
 
         long difference = TimeUnit.HOURS.toMillis(delayHours) + TimeUnit.MINUTES.toMillis(delayMinutes);
         Log.d("current diff in millis", String.valueOf(difference));
@@ -195,7 +193,8 @@ public class UserAccountHome extends AppCompatActivity {
     }
 
 
-    protected void afterAuth() {
+    protected void afterAuth(final Context context) {
+
             UserAccountRecycler = (RecyclerView) findViewById(R.id.recycler_view);
             UserAccountlayoutManager = new LinearLayoutManager(getBaseContext());
             UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
@@ -207,6 +206,19 @@ public class UserAccountHome extends AppCompatActivity {
                     if (response != null ) {
                         RecyclerViewAdapter adapter = new RecyclerViewAdapter(response.getMedicines());
                         UserAccountRecycler.setAdapter(adapter);
+                        // loop to schedule notifications
+                        for (int i = 0; i < response.getMedicines().size(); i++)
+                        {
+                            Integer medFrequency = response.getMedicines().get(i).getDoses_per_day();
+                            ArrayList dosageTimes = parseDosageTimes(response.getMedicines().get(i));
+                            // loop to schedule notifications for medicines that have more than 1 reminder per today
+                            for (int j = 0; j < medFrequency; j++)
+                            {
+                                if (dosageTimes.size() != 0) {
+                                    scheduleNotification(context, dosageTimes.get(j).toString(), i, response.getMedicines().get(i));
+                                }
+                            }
+                        }
                     }
                 }
             };
