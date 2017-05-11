@@ -16,7 +16,7 @@ import io.iaso.iaso.core.model.Medicine;
 public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
     private TextView medicineNameTextView;
-    //private TextView medicineDosageTextView;
+    private TextView medicineDosageTextView;
     private TextView medicineDetailTextView;
     private TextView medicineNextTimeTextView;
     private TextView medicineTitle;
@@ -65,7 +65,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         medicineNameTextView.setText(item.getMed_name());
         medicineDetailTextView.setText(item.getDescription());
         medicineNextTimeTextView.setText(item.getNextDose());
-        //medicineTitle.setText(item.getMed_name().charAt(0));
+        //medicineTitle.setText(item.getMed_name());
         mainUse = item.getMain_usage();
         med_id = item.getMedicine_id();
         dosages = item.getDosage_times();

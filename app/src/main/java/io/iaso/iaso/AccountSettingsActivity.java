@@ -16,6 +16,7 @@ import android.widget.Toast;
 import io.iaso.iaso.UserAccountHome.UserAccountHome;
 import io.iaso.iaso.auth.AuthenticatorActivity;
 import io.iaso.iaso.core.model.UserData;
+import io.iaso.iaso.network.NetworkUtilities;
 import io.iaso.iaso.network.async.UserDataTask;
 import io.iaso.iaso.network.async.UserUpdateTask;
 
@@ -88,6 +89,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
                 Account account = accounts[0];
 
                 accountManager.removeAccountExplicitly(account);
+                ApplicationInstance.getNetUtils().mCurrentToken = null;
 
                 //click logout, go to login page
                 String logoutSuccess = "Logged out, back to login";
