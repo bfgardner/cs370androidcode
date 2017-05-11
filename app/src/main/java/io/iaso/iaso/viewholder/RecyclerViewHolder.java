@@ -19,15 +19,16 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     //private TextView medicineDosageTextView;
     private TextView medicineDetailTextView;
     private TextView medicineNextTimeTextView;
+    private TextView medicineTitle;
     private LinearLayout medicineCard;
 
 
-    String mainUse;
-    String med_id;
-    String dosages;
-    String instructions;
-    Integer dosesPerDay;
-    String dosage_amount;
+    private String mainUse;
+    private String med_id;
+    private String dosages;
+    private String instructions;
+    private Integer dosesPerDay;
+    private String dosage_amount;
 
 
     public RecyclerViewHolder(final View itemView) {
@@ -37,6 +38,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         medicineCard = (LinearLayout) itemView.findViewById(R.id.medicine_card);
         medicineDetailTextView = (TextView)itemView.findViewById(R.id.recycler_medicine_details);
         medicineNextTimeTextView = (TextView)itemView.findViewById(R.id.recycler_medicine_next_dose);
+        medicineTitle = (TextView)itemView.findViewById(R.id.recycler_medicine_title);
 
         medicineCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +65,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         medicineNameTextView.setText(item.getMed_name());
         medicineDetailTextView.setText(item.getDescription());
         medicineNextTimeTextView.setText(item.getNextDose());
+        medicineTitle.setText(item.getMed_name().charAt(0));
         mainUse = item.getMain_usage();
         med_id = item.getMedicine_id();
         dosages = item.getDosage_times();

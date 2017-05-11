@@ -28,6 +28,13 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <!--<TextView-->
+                <!--android:id="@+id/recycler_medicine_title"-->
+                <!--android:layout_width="20dp"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:background="@drawable/circle"-->
+                <!--android:gravity="center_vertical" />-->
+
             <TextView
                 android:id="@+id/recycler_medicine_name"
                 android:layout_width="match_parent"
