@@ -16,6 +16,7 @@ import android.widget.Toast;
 import io.iaso.iaso.UserAccountHome.UserAccountHome;
 import io.iaso.iaso.auth.AuthenticatorActivity;
 import io.iaso.iaso.core.model.UserData;
+import io.iaso.iaso.network.NetworkUtilities;
 import io.iaso.iaso.network.async.UserDataTask;
 import io.iaso.iaso.network.async.UserUpdateTask;
 
@@ -23,30 +24,24 @@ public class AccountSettingsActivity extends AppCompatActivity {
 
     private Button saveButton;
     private Button logoutButton;
-    private TextView currentEmail;
-    private TextView currentUsername;
+    //private TextView currentEmail;
+    //private TextView currentUsername;
     private TextView changeEmail;
-    private TextView changePassword;
     private TextView changeUsername;
     private EditText enterEmail;
     private EditText enterUsername;
-    private EditText enterOldPass;
-    private EditText enterNewPass;
     private String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_settings);
 
-        currentEmail = (TextView)findViewById(R.id.current_email);
+        //currentEmail = (TextView)findViewById(R.id.current_email);
         changeEmail = (TextView)findViewById(R.id.change_email);
         enterEmail = (EditText)findViewById(R.id.enter_email);
-        currentUsername = (TextView)findViewById(R.id.current_username);
+        //currentUsername = (TextView)findViewById(R.id.current_username);
         changeUsername = (TextView)findViewById(R.id.change_username);
         enterUsername = (EditText)findViewById(R.id.enter_username);
-        changePassword = (TextView)findViewById(R.id.change_password);
-        enterOldPass = (EditText)findViewById(R.id.enter_current_password);
-        enterNewPass = (EditText)findViewById(R.id.enter_new_password);
         saveButton = (Button)findViewById(R.id.save_button);
         logoutButton = (Button)findViewById(R.id.logout_button);
 
@@ -56,8 +51,8 @@ public class AccountSettingsActivity extends AppCompatActivity {
         task.setOnUserDataCallbackListener(new UserDataTask.OnUserDataCallbackListener() {
             @Override
             public void onCallBack(UserData response) {
-                currentEmail.setText(response.getEmail());
-                currentUsername.setText(response.getUsername());
+                enterEmail.setText(response.getEmail());
+                enterUsername.setText(response.getUsername());
                 id = response.getID();
             }
         });
@@ -94,6 +89,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
                 Account account = accounts[0];
 
                 accountManager.removeAccountExplicitly(account);
+                ApplicationInstance.getNetUtils().mCurrentToken = null;
 
                 //click logout, go to login page
                 String logoutSuccess = "Logged out, back to login";

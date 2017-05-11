@@ -79,7 +79,7 @@ final public class NetworkUtilities {
      */
     public static final String AUTH_URI = BASE_URL + "/auth";
 
-    private String mCurrentToken;
+    public String mCurrentToken;
 
     public NetworkUtilities() {
         ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)

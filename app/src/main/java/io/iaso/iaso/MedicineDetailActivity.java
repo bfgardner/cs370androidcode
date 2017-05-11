@@ -100,34 +100,4 @@ public class MedicineDetailActivity extends AppCompatActivity {
     }
 }
 
-/*public String pretty_dose_times(String times){
-    String temp = "";
-    String subString;
-    Integer hour;
-    for (int i = 0; i < times.length(); i+=4){
-        subString = times.substring(i,i+4);
-        hour = Integer.parseInt(subString.substring(0,2));
-        if (hour > 12){
-            hour = hour - 12;
-            temp = Integer.toString(hour);
-            temp += ":";
-            temp += times.substring(i+2,i+4);
-            temp += " PM";
-        }
-        else if (hour == 0){
-            hour = 12;
-            temp = Integer.toString(hour);
-            temp += ":";
-            temp += times.substring(i+2,i+4);
-            temp += " AM";
-        }
-        else{
-            temp = Integer.toString(hour);
-            temp += ":";
-            temp += times.substring(i+2,i+4);
-            temp += " AM";
-        }
-        temp += "   ";
-    }
-    return temp;
-}}*/
+

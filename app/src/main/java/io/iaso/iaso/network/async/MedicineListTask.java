@@ -24,10 +24,6 @@ import okhttp3.TlsVersion;
 
 public class MedicineListTask extends AsyncTask<String,String,MedicineResponse> {
     private MedicineCallbackListener medicineCallbackListener;
-    //who knows what's going to happen....
-    private String baseApiUrl = "api.iaso.io";
-    private String apiKey = "test_user_access_token"; //will be taken care of elsewhere...soon....
-    private String appId;
 
     @Override
     protected MedicineResponse doInBackground(String... params) {

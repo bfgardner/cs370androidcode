@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -16,26 +17,31 @@ import io.iaso.iaso.core.model.Medicine;
 public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
     private TextView medicineNameTextView;
-    //private TextView medicineDosageTextView;
+   // private TextView medicineDosageTextView;
     private TextView medicineDetailTextView;
     private TextView medicineNextTimeTextView;
-    private CardView medicineCard;
+    private TextView medicineTitle;
+    private LinearLayout medicineCard;
 
-    String mainUse;
-    String med_id;
-    String dosages;
-    String instructions;
-    Integer dosesPerDay;
-    String dosage_amount;
+
+    private String mainUse;
+    private String med_id;
+    private String dosages;
+    private String instructions;
+    private Integer dosesPerDay;
+    private String dosage_amount;
 
 
     public RecyclerViewHolder(final View itemView) {
         super(itemView);
 
         medicineNameTextView = (TextView)itemView.findViewById(R.id.recycler_medicine_name);
+        medicineCard = (LinearLayout) itemView.findViewById(R.id.medicine_card);
         medicineDetailTextView = (TextView)itemView.findViewById(R.id.recycler_medicine_details);
         medicineNextTimeTextView = (TextView)itemView.findViewById(R.id.recycler_medicine_next_dose);
-        medicineCard = (CardView)itemView.findViewById(R.id.recycler_card_view);
+        //medicineCard = (CardView)itemView.findViewById(R.id.recycler_card_view);
+       // medicineTitle = (TextView)itemView.findViewById(R.id.recycler_medicine_title);
+
 
         medicineCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +68,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         medicineNameTextView.setText(item.getMed_name());
         medicineDetailTextView.setText(item.getDescription());
         medicineNextTimeTextView.setText(item.getNextDose());
+        //medicineTitle.setText(item.getMed_name());
         mainUse = item.getMain_usage();
         med_id = item.getMedicine_id();
         dosages = item.getDosage_times();

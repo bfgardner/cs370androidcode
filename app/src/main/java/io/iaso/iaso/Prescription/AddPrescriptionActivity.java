@@ -167,6 +167,8 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
         if (hour == 0){
             hour = 12;
             midnight = true;
+            st_hour += hour.toString();
+            pacific_hr = hour.toString();
         }
         else if(hour < 10){
             st_hour += zero.toString();
@@ -178,6 +180,9 @@ public class AddPrescriptionActivity extends AppCompatActivity implements Adapte
                 pacific_hr = zero.toString();
             }
             pacific_hr += Integer.toString(hour - 12);
+            st_hour += hour.toString();
+        }
+        else{
             st_hour += hour.toString();
         }
         if (minute < 10){
