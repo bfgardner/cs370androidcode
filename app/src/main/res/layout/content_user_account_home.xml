@@ -41,8 +41,8 @@
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:padding="2px"
-                    android:background="@drawable/circle"
-                    android:textColor="@color/cardview_light_background"
+                    android:background="@drawable/iaso_bottle"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textAlignment="center"
                     android:textSize="11pt"
                     android:gravity="center_vertical" />
@@ -56,22 +56,28 @@
                     android:layout_weight="10"/>
 
             </LinearLayout>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorBackground"/>
+                android:background="@color/colorBackground"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="10" />
 
             <TextView
                 android:id="@+id/recycler_medicine_details"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp" />
 
 
             <TextView
                 android:id="@+id/recycler_medicine_next_dose"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp" />
 
 
 <!--
