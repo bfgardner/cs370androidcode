@@ -35,8 +35,10 @@ import io.iaso.iaso.adapter.RecyclerViewAdapter;
 import io.iaso.iaso.auth.*;
 import io.iaso.iaso.core.model.Medicine;
 import io.iaso.iaso.core.model.MedicineResponse;
+import io.iaso.iaso.core.model.NotificationPreferences;
 import io.iaso.iaso.network.async.MedicineCallbackListener;
 import io.iaso.iaso.network.async.MedicineListTask;
+import io.iaso.iaso.network.async.NotificationResponseTask;
 
 public class UserAccountHome extends AppCompatActivity {
 
@@ -48,8 +50,8 @@ public class UserAccountHome extends AppCompatActivity {
     private Button settingsButton;
     private CardView individualCard;
     private Button notificationButton;
-    //private ArrayList<Medicine> medicineItems;
     private MedicineCallbackListener medicineCallbackListener;
+    private String initialNotification;
 
 
     @Override
@@ -59,8 +61,6 @@ public class UserAccountHome extends AppCompatActivity {
 
         Context context = ApplicationInstance.getInstance();
 
-        //scheduleNotification(this, "2247", 1);
-
         AccountManager accountManager = AccountManager.get(context);
         Account[] accounts = accountManager.getAccountsByType("io.iaso.iaso.auth");
         // No account, do not even try to authenticate
@@ -68,6 +68,7 @@ public class UserAccountHome extends AppCompatActivity {
             Intent intent = new Intent(this, AuthenticatorActivity.class);
             startActivityForResult(intent, 1);
         } else {
+            // Pass this to the function after Auth because the notifications need a context.
             afterAuth(this);
         }
 
@@ -130,7 +131,7 @@ public class UserAccountHome extends AppCompatActivity {
         task.execute(magicalTokenOfDestiny); //magic token??
     }
 
-    public void scheduleNotification(Context context, String delay, int notificationId, Medicine medicine) {
+    public void scheduleNotification(Context context, String delay, String initialNotificationSetting, int notificationId, Medicine medicine) {
 
         String contentText =  medicine.getDescription();
         String title = medicine.getMed_name();
@@ -141,22 +142,48 @@ public class UserAccountHome extends AppCompatActivity {
                 .setContentTitle(title)
                 .setContentText(contentText)
                 .setContentIntent(pIntent);
-        //.setAutoCancel(true); // sets up params for notification
 
         Notification notification = nBuilder.build(); // builds notification
 
-        Intent notificationIntent = new Intent(context, NotificationPublisher.class); // potentially misleading variable name.. not actually the intent for the notification
+        Intent notificationIntent = new Intent(context, NotificationPublisher.class); // potentially misleading variable name. Not actually the intent for the notification
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, notificationId);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notificationId, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        long startTime = 0;
+        if (initialNotificationSetting == null)
+        {
+            startTime = 0;
+        }
+        else if (initialNotificationSetting.equals(".25"))
+        {
+            startTime = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
+        }
+        else if (initialNotificationSetting.equals(".50"))
+        {
+            startTime = AlarmManager.INTERVAL_HALF_HOUR;
+        }
+        else if (initialNotificationSetting.equals("1.0"))
+        {
+            startTime = AlarmManager.INTERVAL_HOUR;
+        }
+        else if (initialNotificationSetting.equals("2.0"))
+        {
+            startTime = AlarmManager.INTERVAL_HOUR + AlarmManager.INTERVAL_HOUR;
+        }
+
         long notificationDelay = hoursToMillis(delay);
-        //long notificationDelay = hoursToMillis(delay); I'm Crazy
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, notificationDelay, AlarmManager.INTERVAL_DAY , pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, notificationDelay - startTime, AlarmManager.INTERVAL_DAY , pendingIntent);
 
     }
 
+    /*
+      This function takes a string as a parameter. This string should be a multiple of
+      4, where each segment represents a time in a 24 hour clock. This function will parse
+      that string and return an ArrayList that contains each time. This result will eventually get
+      used by the notification scheduler in the function: afterAuth().
+     */
     public ArrayList parseDosageTimes(Medicine medicine) {
         String dosageTimes = medicine.getDosage_times(); // times each dose gets taken
         Integer doseFrequency = medicine.getDoses_per_day(); // amount of doses per day
@@ -176,8 +203,20 @@ public class UserAccountHome extends AppCompatActivity {
         return times;
     }
 
+    /*
+       This function will take a string time. This parameter should be a string
+       of length 4 that is a time on the 24 hour clock. This function will read this time
+       and return a long that represents the the delay before the passed in time, after the
+       current time that this function is called.
+     */
     public long hoursToMillis(String time) {
-        //long intTime = Integer.parseInt(time);
+
+        if (time.length() != 4)
+        {   // If time is not a valid input, simply return the current time so things don't break.
+            // This will NOT handle other special cases such as characters or spaces in the time string.
+            return System.currentTimeMillis();
+        }
+
         Log.d("Everything is fine", time);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis()); // may not use at all
@@ -199,6 +238,22 @@ public class UserAccountHome extends AppCompatActivity {
             UserAccountlayoutManager = new LinearLayoutManager(getBaseContext());
             UserAccountRecycler.setLayoutManager(UserAccountlayoutManager);
             //call to API, get medicine repsonse object
+
+            NotificationResponseTask nTask = new NotificationResponseTask();
+            nTask.setOnNotificationCallbackListener(new NotificationResponseTask.OnNotificationCallbackListener() {
+                @Override
+                public void onCallBack(NotificationPreferences response) {
+                    if (response == null)
+                    {
+                        initialNotification = "0";
+                    }
+                    else
+                    {
+                        initialNotification += response.getInitial_notif();
+                    }
+                }
+            });
+
             medicineCallbackListener = new MedicineCallbackListener() {
                 @Override
                 public void onMedicineCallback(MedicineResponse response) {
@@ -215,7 +270,8 @@ public class UserAccountHome extends AppCompatActivity {
                             for (int j = 0; j < medFrequency; j++)
                             {
                                 if (dosageTimes.size() != 0) {
-                                    scheduleNotification(context, dosageTimes.get(j).toString(), i, response.getMedicines().get(i));
+                                    // Context passed in from main activity onCreate().
+                                    scheduleNotification(context, dosageTimes.get(j).toString(), initialNotification, i, response.getMedicines().get(i));
                                 }
                             }
                         }
