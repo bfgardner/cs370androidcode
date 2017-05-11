@@ -22,6 +22,7 @@ import android.accounts.AccountManager;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -106,6 +107,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
         mProgressView = findViewById(R.id.login_progress);
 
         View mSignIn = (Button)findViewById(R.id.email_sign_in_button);
+        View mCreateAccount = (Button)findViewById(R.id.need_account_button);
+        // View forgotPassword = (Button)findViewById(R.id.reset_password_button);
+
+        final Context currentContext = this;
 
         mSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +118,21 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
                 handleLogin(view);
             }
         });
+
+        mCreateAccount.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(currentContext, CreateAccountActivity.class);
+                startActivity(i);
+            }
+        });
+
+//        forgotPassword.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v) {
+//                // To be added
+//            }
+//        });
 
     }
     /*

@@ -1,8 +1,12 @@
 package io.iaso.iaso;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -82,9 +86,18 @@ public class AccountSettingsActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Doing the work to remove the account
+                Context context = ApplicationInstance.getInstance();
+
+                AccountManager accountManager = AccountManager.get(context);
+                Account[] accounts = accountManager.getAccountsByType("io.iaso.iaso.auth");
+                Account account = accounts[0];
+
+                accountManager.removeAccountExplicitly(account);
+
                 //click logout, go to login page
                 String logoutSuccess = "Logged out, back to login";
-                Intent logout =  new Intent(AccountSettingsActivity.this, AuthenticatorActivity.class);
+                Intent logout =  new Intent(AccountSettingsActivity.this, UserAccountHome.class);
                 logout.putExtra("Success", logoutSuccess);
                 startActivity(logout);
             }

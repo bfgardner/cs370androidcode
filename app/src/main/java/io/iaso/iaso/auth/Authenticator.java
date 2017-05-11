@@ -1,21 +1,5 @@
 package io.iaso.iaso.auth;
 
-/*
- * Copyright (C) 2010 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
-
 import android.accounts.AbstractAccountAuthenticator;
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorResponse;
@@ -31,13 +15,13 @@ import io.iaso.iaso.network.NetworkUtilities;
 
 /**
  * This class is an implementation of AbstractAccountAuthenticator for
- * authenticating accounts in the com.iaso.android.samplesync domain. The
+ * authenticating accounts in the io.iaso.iaso.auth domain. The
  * interesting thing that this class demonstrates is the use of authTokens as
  * part of the authentication process. In the account setup UI, the user enters
  * their username and password. But for our subsequent calls off to the service
  * for syncing, we want to use an authtoken instead - so we're not continually
  * sending the password over the wire. getAuthToken() will be called when
- * SyncAdapter calls AccountManager.blockingGetAuthToken(). When we get called,
+ * Any network task calls AccountManager.blockingGetAuthToken(). When we get called,
  * we need to return the appropriate authToken for the specified account. If we
  * already have an authToken stored in the account, we return that authToken. If
  * we don't, but we do have a username and password, then we'll attempt to talk
