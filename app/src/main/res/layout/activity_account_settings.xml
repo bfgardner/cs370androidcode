@@ -13,31 +13,16 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
         app:srcCompat="@drawable/icon_info" />
 
     <!-- eventuallly will be the actual email for the user -->
 
     <TextView
-        android:id="@+id/account_current_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Current Account Email:"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/current_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="12dp"
-        android:paddingTop="6dp"
-        android:text="[email]"
-        android:textSize="18sp" />
-
-    <TextView
         android:id="@+id/change_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="24dp"
         android:text="Change Account Email:"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -49,27 +34,10 @@
         android:hint="Enter New Email" />
 
     <TextView
-        android:id="@+id/account_current_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="30dp"
-        android:text="Current Account Username:"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/current_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="12dp"
-        android:paddingTop="6dp"
-        android:text="[username]"
-        android:textSize="18sp" />
-
-    <TextView
         android:id="@+id/change_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="32dp"
         android:text="Change Account Username:"
         android:textSize="18sp"
         android:textStyle="bold" />
