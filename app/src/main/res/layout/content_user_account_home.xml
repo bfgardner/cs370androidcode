@@ -41,7 +41,9 @@
                 android:id="@+id/recycler_medicine_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="10"/>
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="10" />
 
             <View
                 android:layout_width="match_parent"
@@ -51,13 +53,17 @@
             <TextView
                 android:id="@+id/recycler_medicine_details"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp" />
 
 
             <TextView
                 android:id="@+id/recycler_medicine_next_dose"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp" />
 
 
 <!--
